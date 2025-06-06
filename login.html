@@ -135,16 +135,15 @@
             const correctPassword = "Jungkook123";
             if (username === correctUsername && password === correctPassword) {
                 localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = 'index2.html';
+                window.location.href = 'index.html';
             } else {
                 errorMessage.textContent = "Invalid username or password. Try 'Anamika' and 'Jungkook123'";
             }
         });
         // If already logged in, redirect to home
         if (localStorage.getItem('isLoggedIn') === 'true') {
-            window.location.href = 'index2.html';
+            window.location.href = 'index.html';
         }
     </script>
 </body>
 </html>
-
