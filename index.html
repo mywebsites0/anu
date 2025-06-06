@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Anamika's BTS World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* General Styles */
         * {
@@ -152,7 +153,7 @@
 
         /* Home Page Styles */
         .home-content {
-            display: none;
+            display: block !important;
             padding: 20px;
         }
 
@@ -200,9 +201,9 @@
         /* Main Content Grid */
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            max-width: 1400px;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 40px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -210,7 +211,7 @@
         .left-column, .right-column {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 40px;
         }
 
         /* Section Common Styles */
@@ -246,15 +247,15 @@
         /* Gallery Section */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .gallery-item {
             position: relative;
             overflow: hidden;
-            border-radius: 10px;
-            height: 250px;
+            border-radius: 18px;
+            height: 320px;
             cursor: pointer;
             transition: transform 0.3s;
         }
@@ -374,25 +375,9 @@
             line-height: 1.4;
         }
 
-        /* Diary Section */
-        #diaryEntry {
-            width: 100%;
-            height: 200px;
-            padding: 15px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #ff6b6b;
-            color: white;
-            margin-bottom: 15px;
-            resize: none;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        #diaryEntry:focus {
-            outline: none;
-            border-color: #ff3860;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        /* Diary Section (SIMPLE) */
+        #moodSelector {
+            display: none;
         }
 
         .diary-actions {
@@ -462,42 +447,6 @@
             transform: rotate(90deg);
         }
 
-        .mood-selector {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .mood-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 20px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .mood-option:hover {
-            transform: scale(1.2);
-        }
-
-        .mood-option.selected {
-            transform: scale(1.2);
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-        }
-
-        .diary-mood {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 20px;
-        }
-
         /* Chatbot Section */
         .chat-container {
             display: flex;
@@ -506,6 +455,9 @@
             max-height: 400px;
             overflow-y: auto;
             padding-right: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px;
         }
 
         .chat-container::-webkit-scrollbar {
@@ -567,6 +519,12 @@
             display: flex;
             gap: 10px;
             margin-top: 20px;
+            color: #6a0dad; /* Set font color for the input container and its children */
+        }
+
+        .chat-input-container .chat-input,
+        .chat-input-container .send-button {
+            color: #6a0dad;
         }
 
         .chat-input {
@@ -574,7 +532,7 @@
             padding: 15px;
             border-radius: 8px;
             border: none;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(12, 12, 12, 0.1);
             color: white;
             font-size: 16px;
         }
@@ -633,50 +591,32 @@
             .main-content {
                 grid-template-columns: 1fr;
             }
+            .left-column, .right-column {
+                gap: 25px;
+            }
+            .left-column .section.gallery-section,
+            .right-column .section.diary-section,
+            .right-column .section.chatbot-section {
+                padding: 30px 10px 25px 10px;
+                min-height: 300px;
+            }
+            .gallery-item {
+                height: 180px;
+            }
         }
 
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                gap: 20px;
+        @media (max-width: 700px) {
+            .main-content {
+                padding: 0 2vw;
             }
-            
-            .profile-image {
-                width: 150px;
-                height: 150px;
+            .left-column .section.gallery-section,
+            .right-column .section.diary-section,
+            .right-column .section.chatbot-section {
+                padding: 10px 2vw 10px 2vw;
+                min-height: 180px;
             }
-            
-            .header h1 {
-                font-size: 32px;
-            }
-            
-            .chat-message {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .chat-avatar {
-                width: 60px;
-                height: 60px;
-            }
-
-            .music-bar {
-                flex-direction: column;
-                gap: 10px;
-                padding: 15px 10px;
-            }
-
-            .section {
-                padding: 20px;
-            }
-
-            .news-item {
-                flex-direction: column;
-            }
-
-            .news-image {
-                width: 100%;
-                height: 150px;
+            .gallery-item {
+                height: 90px;
             }
         }
 
@@ -808,26 +748,12 @@
                 font-size: 12px;
                 gap: 5px;
             }
-            .diary-mood {
-                font-size: 16px;
-                top: 5px;
-                left: 5px;
-            }
             .delete-entry {
                 width: 22px;
                 height: 22px;
                 font-size: 16px;
                 top: 5px;
                 right: 5px;
-            }
-            .mood-selector {
-                gap: 5px;
-                margin-bottom: 8px;
-            }
-            .mood-option {
-                width: 28px;
-                height: 28px;
-                font-size: 16px;
             }
             .chat-container {
                 gap: 10px;
@@ -921,8 +847,122 @@
         .home-content {
             align-items: stretch;
         }
+
+        /* Make Gallery (left), Diary (right), and Chatbot (right) sections big and beautiful */
+        .left-column .section.gallery-section {
+            background: linear-gradient(135deg, #a4508b 0%, #5f0a87 100%);
+            box-shadow: 0 12px 40px rgba(106,13,173,0.18);
+            border: 3px solid #ff6b6b;
+            padding: 50px 40px 40px 40px;
+            min-height: 420px;
+            position: relative;
+            z-index: 2;
+        }
+        .left-column .section.gallery-section h2 {
+            font-size: 2.5rem;
+            color: #fff;
+            letter-spacing: 2px;
+            margin-bottom: 35px;
+        }
+        .right-column .section.diary-section,
+        .right-column .section.chatbot-section {
+            background: linear-gradient(135deg, #ff6b6b 0%, #a4508b 100%);
+            border: 3px solid #fff;
+            box-shadow: 0 12px 40px rgba(255,107,107,0.13);
+            padding: 50px 40px 40px 40px;
+            min-height: 420px;
+            z-index: 2;
+            margin-bottom: 0;
+        }
+        .right-column .section.diary-section h2,
+        .right-column .section.chatbot-section h2 {
+            font-size: 2.3rem;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        #diaryEntry {
+            min-height: 220px;
+            width: 500px;
+            height: 200px;
+            font-size: 1rem;
+            background: rgba(15,32,39,0.85);
+            border: 2px solid #00e6ff;
+            color: #fff;
+            padding: 18px 16px;
+            line-height: 1.7;
+            resize: vertical;
+        }
+        .chat-container {
+            max-height: 500px;
+            font-size: 1.1rem;
+        }
+
+        /* Make secondary sections small but noticeable */
+        .left-column .section:not(.gallery-section),
+        .right-column .section:not(.diary-section):not(.chatbot-section) {
+            padding: 15px 12px;
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #8a2be2;
+            box-shadow: 0 2px 8px rgba(106,13,173,0.08);
+            min-height: unset;
+            margin-bottom: 10px;
+        }
+        .left-column .section:not(.gallery-section) h2,
+        .right-column .section:not(.diary-section):not(.chatbot-section) h2 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+        }
+
+        /* Change Diary Section to dark blue theme */
+        .right-column .section.diary-section {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            border: 3px solid #00e6ff;
+            box-shadow: 0 12px 40px rgba(44,83,100,0.25);
+        }
+        .right-column .section.diary-section h2 {
+            color: #fff;
+            text-shadow: 0 2px 10px #00e6ff, 0 0 2px #0f2027;
+        }
+        #diaryEntry {
+            background: rgba(15, 32, 39, 0.85);
+            border: 2px solid #00e6ff;
+            color: #fff;
+        }
+        .diary-actions button {
+            background: linear-gradient(90deg, #16222a 0%, #3a6073 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(44,83,100,0.18);
+        }
+        .diary-actions button:hover {
+            background: linear-gradient(90deg, #3a6073 0%, #16222a 100%);
+            color: #fff176;
+        }
+        .diary-item {
+            background: rgba(44, 83, 100, 0.18);
+            border-left: 4px solid #00e6ff;
+        }
+        .diary-date {
+            color: #00e6ff;
+        }
+
+        /* Chatbot Section color */
+        .right-column .section.chatbot-section {
+            background: linear-gradient(135deg, #6a82fb 0%, #fc5c7d 100%);
+            border: 3px solid #6a82fb;
+            box-shadow: 0 12px 40px rgba(106,130,251,0.13);
+        }
+        .right-column .section.chatbot-section h2 {
+            color: #5cfcdf;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff3cac, 0 2px 10px #fff;
+        }
+        .chat-container {
+            background: rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 10px;
+        }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Background Slideshow -->
@@ -931,27 +971,6 @@
         <div class="background-slide" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="background-slide" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
         <div class="background-slide" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80')"></div>
-    </div>
-
-    <!-- Login Page -->
-    <div id="login-page">
-        <div id="particles-js"></div>
-        <div class="login-container">
-            <img src="images/55.jpg" alt="BTS" class="bts-image">
-            <h1>Welcome Anamika</h1>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter 'Anamika'" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" placeholder="password" required>
-                </div>
-                <button type="submit">Login</button>
-                <p id="error-message" class="error"></p>
-            </form>
-        </div>
     </div>
 
     <!-- Home Page -->
@@ -971,73 +990,81 @@
             <!-- Left Column -->
             <div class="left-column">
                 <!-- Gallery Section -->
-                <div class="section">
+                <div class="section gallery-section">
                     <h2>BTS Gallery</h2>
-                    <div style="text-align:center; margin-bottom:15px;">
-                        <input type="file" id="galleryImageInput" accept="image/*" style="display:none;">
-                        <button id="addGalleryImageBtn"><i class="fas fa-plus"></i> Add Image</button>
-                    </div>
                     <div class="gallery-grid" id="galleryGrid">
-                        <div class="gallery-item">
-                            <img src="images/download (31).jpg" alt="BTS 1">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.15.36 PM.jpeg" alt="BTS 2">
-                        </div
-                        <div class="gallery-item"> 
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.15.37 PM (1).jpeg" alt="BTS 3">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.15.38 PM.jpeg" alt="BTS 4">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.17.21 PM.jpeg" alt="BTS 5">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.05.51 PM.jpeg" alt="BTS 6">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="images/WhatsApp Image 2025-06-06 at 12.15.38 PM (1).jpeg" alt="BTS 7">
-                        </div>
+                        <div class="gallery-item"><img src="images/WhatsApp Image 2025-06-06 at 12.05.51 PM.jpeg" alt="BTS 1"></div>
+                        <div class="gallery-item"><img src="images/WhatsApp Image 2025-06-06 at 12.17.21 PM.jpeg" alt="BTS 2"></div>
+                        <div class="gallery-item"><img src="images/WhatsApp Image 2025-06-06 at 12.15.37 PM (1).jpeg" alt="BTS 3"></div>
+                        <div class="gallery-item"><img src="images/WhatsApp Image 2025-06-06 at 12.15.38 PM.jpeg" alt="BTS 4"></div>
+                    </div>
+                    <div style="text-align:center; margin-top:10px;">
+                        <a id="goToGalleryBtn" href="gallery.html" style="background:#6a0dad; color:white; border:none; border-radius:8px; padding:10px 22px; font-size:1rem; cursor:pointer; margin-top:10px; display:inline-block; text-decoration:none;">
+                            <i class="fas fa-images"></i> Go to Gallery
+                        </a>
                     </div>
                 </div>
-
                 <!-- Quotes Section -->
                 <div class="section">
                     <h2>BTS Quotes</h2>
-                    <div class="quote-container" id="quoteDisplay">
-                        <div class="quote-text">"No matter who you are, where you're from, your skin color, your gender identity, just speak yourself."</div>
-                        <div class="quote-author">- RM</div>
-                    </div>
+                    <div class="quote-container" id="quoteDisplay"></div>
                     <div class="quote-nav">
                         <button id="prevQuote"><i class="fas fa-chevron-left"></i> Previous</button>
                         <button id="nextQuote">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
+                    <!-- Songs Playlist under Quotes -->
+                    <div class="music-player-container" style="text-align:center;margin-top:30px;">
+                        <div class="now-playing" id="nowPlaying"></div>
+                        <div class="music-controls" style="display:flex;justify-content:center;gap:20px;margin:20px 0;">
+                            <button id="prevBtn"><i class="fas fa-step-backward"></i></button>
+                            <button id="playBtn"><i class="fas fa-play"></i></button>
+                            <button id="nextBtn"><i class="fas fa-step-forward"></i></button>
+                        </div>
+                        <audio id="audioPlayer"></audio>
+                    </div>
+                </div>
+                <!-- News Section -->
+                <div class="section">
+                    <h2>Latest BTS News</h2>
+                    <div class="news-item" id="currentNews"></div>
+                    <div class="quote-nav">
+                        <button id="prevNews"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button id="nextNews">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div style="text-align:center; margin-top:10px;">
+                        <a href="https://www.allkpop.com/artisttag/bts" target="_blank" style="color:#6a0dad; font-weight:bold; text-decoration:underline; font-size:1rem;">More BTS News</a>
+                    </div>
+                </div>
+                <!-- Facts Section -->
+                <div class="section">
+                    <h2>BTS Fun Facts</h2>
+                    <div class="facts-container" id="factDisplay">
+                        <div class="fact-text"></div>
+                    </div>
+                    <div class="fact-nav" style="display:flex;justify-content:center;gap:10px;margin-top:15px;">
+                        <button id="prevFact"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button id="nextFact">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
-
             <!-- Right Column -->
             <div class="right-column">
-                <!-- Diary Section -->
-                <div class="section">
+                <!-- Diary Section (SIMPLE) -->
+                <div class="section diary-section">
                     <h2>Anamika's BTS Diary</h2>
-                    <div class="mood-selector">
-                        <div class="mood-option" data-mood="😊">😊</div>
-                        <div class="mood-option" data-mood="😍">😍</div>
-                        <div class="mood-option" data-mood="🥺">🥺</div>
-                        <div class="mood-option" data-mood="😭">😭</div>
-                        <div class="mood-option" data-mood="💜">💜</div>
+                    <div class="emoji-picker" id="emojiPicker" style="display:flex;gap:10px;justify-content:center;margin-bottom:12px;font-size:1.6rem;cursor:pointer;">
+                        <span>💜</span><span>🎤</span><span>🎶</span><span>😄</span><span>✨</span><span>🥰</span><span>🔥</span><span>😭</span><span>🌈</span><span>🫰</span>
                     </div>
                     <textarea id="diaryEntry" placeholder="Write your thoughts about BTS, your day, or anything you want to remember..."></textarea>
                     <div class="diary-actions">
                         <button id="saveDiary"><i class="fas fa-save"></i> Save Entry</button>
-                        <button id="clearDiary"><i class="fas fa-trash"></i> Clear</button>
+                        <button id="viewPreviousDiaries"><i class="fas fa-book"></i> My Saved Diaries</button>
                     </div>
+                    <div id="diaryFeedback" style="text-align:center;color:#00e6ff;font-size:1rem;margin-bottom:10px;"></div>
                     <div class="saved-entries" id="diaryEntries"></div>
                 </div>
-
                 <!-- Chatbot Section -->
-                <div class="section">
+                <div class="section chatbot-section">
                     <h2>Chat with JK</h2>
                     <div class="chat-container" id="chatDisplay">
                         <div class="chat-message jk">
@@ -1051,821 +1078,487 @@
                         </div>
                     </div>
                     <div class="chat-input-container">
-                        <input type="text" class="chat-input" id="userInput" placeholder="Type your message to JK..." autocomplete="off">
+                        <input type="text" class="chat-input" id="userInput" placeholder="Chat with kookie" autocomplete="off">
                         <button class="send-button" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
-
-                <!-- News Section -->
-                <div class="section">
-                    <h2>Latest BTS News</h2>
-                    <div class="news-item" id="currentNews">
-                        <img src="images/bts-group.jpg" alt="BTS News" class="news-image">
-                        <div class="news-content">
-                            <div class="news-date">June 3, 2025</div>
-                            <h3>BTS Announces Hiatus Extension</h3>
-                            <p class="news-text">BTS has announced they will extend their group hiatus until 2026 to focus on solo projects and personal growth.</p>
-                        </div>
-                    </div>
-                    <div class="quote-nav">
-                        <button id="prevNews"><i class="fas fa-chevron-left"></i> Previous</button>
-                        <button id="nextNews">Next <i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-
-                <!-- Facts Section -->
-                <div class="section">
-                    <h2>BTS Fun Facts</h2>
-                    <ul class="facts-list">
-                        <li>BTS made history in 2025 by becoming the first artists to perform a holographic concert simultaneously in 10 different countries.</li>
-                        <li>Jungkook's solo album "GOLDEN" broke the record for most streams in 24 hours with over 150 million plays.</li>
-                        <li>RM's latest art exhibition in Seoul featured AI-generated poetry that responds to viewers' emotions in real-time.</li>
-                        <li>BTS recently launched their own metaverse platform "Bangtan Universe" where ARMY can interact with digital versions of the members.</li>
-                        <li>The group's 2025 world tour will feature revolutionary 4D holographic technology that makes it feel like the members are right in front of you.</li>
-                        <li>BTS became the first Korean artists to receive the Presidential Medal of Honor for their cultural contributions.</li>
-                        <li>Jin's restaurant "Jin's Kitchen" was awarded a Michelin star in 2025 for its innovative Korean-fusion cuisine.</li>
-                    </ul>
-                </div>
             </div>
         </div>
-
-        <!-- Music Player Bar -->
-        <div class="music-bar">
-            <div class="now-playing" id="nowPlaying">Euphoria - Jungkook</div>
-            <div class="music-controls">
-                <button id="prevBtn"><i class="fas fa-step-backward"></i></button>
-                <button id="playBtn"><i class="fas fa-pause"></i></button>
-                <button id="nextBtn"><i class="fas fa-step-forward"></i></button>
-            </div>
-        </div>
-        <audio id="audioPlayer" loop autoplay></audio>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // Background Slideshow
+        // Background slideshow
         let currentSlide = 0;
         const slides = document.querySelectorAll('.background-slide');
-        
         function changeBackground() {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
         }
-        
         setInterval(changeBackground, 5000);
-
-        // Login Page Functionality
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize particles.js if on login page
-            if (document.getElementById('particles-js')) {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 80, density: { enable: true, value_area: 800 } },
-                        color: { value: "#ffffff" },
-                        shape: { type: "circle" },
-                        opacity: { value: 0.5, random: true },
-                        size: { value: 3, random: true },
-                        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
-                        move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
-                    },
-                    interactivity: {
-                        detect_on: "canvas",
-                        events: {
-                            onhover: { enable: true, mode: "repulse" },
-                            onclick: { enable: true, mode: "push" }
-                        }
-                    }
-                });
+            // Quotes
+            const quotes = [
+                { text: "No matter who you are, where you're from, your skin color, your gender identity, just speak yourself.", author: "RM" },
+                { text: "The dream itself was small, but the happiness I felt was huge.", author: "Suga" },
+                { text: "Effort makes you. You will regret someday if you don't do your best now.", author: "Jungkook" },
+                { text: "Love yourself, love myself. Peace.", author: "V" },
+                { text: "Even if I'm not perfect, I'm so proud of who I've become.", author: "Jimin" },
+                { text: "If you keep working hard, without giving up, you'll achieve your dreams.", author: "Jin" },
+                { text: "The moment you're about to give up is the moment right before the miracle happens.", author: "J-Hope" }
+            ];
+            let currentQuoteIndex = 0;
+            const quoteDisplay = document.getElementById('quoteDisplay');
+            const prevQuoteBtn = document.getElementById('prevQuote');
+            const nextQuoteBtn = document.getElementById('nextQuote');
+            function displayQuote(index) {
+                const quote = quotes[index];
+                quoteDisplay.innerHTML = `<div class="quote-text">"${quote.text}"</div><div class="quote-author">- ${quote.author}</div>`;
             }
-
-            // Login form submission
-            const loginForm = document.getElementById('loginForm');
-            const errorMessage = document.getElementById('error-message');
-
-            if (loginForm) {
-                loginForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const username = document.getElementById('username').value;
-                    const password = document.getElementById('password').value;
-
-                    // Fixed credentials
-                    const correctUsername = "Anamika";
-                    const correctPassword = "Jungkook123";
-
-                    if (username === correctUsername && password === correctPassword) {
-                        // Store login state in localStorage
-                        localStorage.setItem('isLoggedIn', 'true');
-                        // Hide login page and show home page
-                        document.getElementById('login-page').style.display = 'none';
-                        document.getElementById('home-page').style.display = 'block';
-                        // Start music
-                        initializeMusicPlayer();
-                        // Initialize home page
-                        initializeHomePage();
-                    } else {
-                        errorMessage.textContent = "Invalid username or password. Try 'Anamika' and 'Jungkook123'";
-                    }
-                });
-            }
-
-            // Check if user is already logged in
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            if (isLoggedIn && isLoggedIn === 'true') {
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('home-page').style.display = 'block';
-                initializeMusicPlayer();
-                initializeHomePage();
-            }
-
-            // Initialize all home page functionality
-            function initializeHomePage() {
-                // Quotes Section
-                const quotes = [
-                    {
-                        text: "No matter who you are, where you're from, your skin color, your gender identity, just speak yourself.",
-                        author: "RM"
-                    },
-                    {
-                        text: "The dream itself was small, but the happiness I felt was huge.",
-                        author: "Suga"
-                    },
-                    {
-                        text: "Effort makes you. You will regret someday if you don't do your best now.",
-                        author: "Jungkook"
-                    },
-                    {
-                        text: "Love yourself, love myself. Peace.",
-                        author: "V"
-                    },
-                    {
-                        text: "Even if I'm not perfect, I'm so proud of who I've become.",
-                        author: "Jimin"
-                    },
-                    {
-                        text: "If you keep working hard, without giving up, you'll achieve your dreams.",
-                        author: "Jin"
-                    },
-                    {
-                        text: "The moment you're about to give up is the moment right before the miracle happens.",
-                        author: "J-Hope"
-                    }
-                ];
-
-                let currentQuoteIndex = 0;
-                const quoteDisplay = document.getElementById('quoteDisplay');
-                const prevQuoteBtn = document.getElementById('prevQuote');
-                const nextQuoteBtn = document.getElementById('nextQuote');
-
-                function displayQuote(index) {
-                    const quote = quotes[index];
-                    quoteDisplay.innerHTML = `
-                        <div class="quote-text">"${quote.text}"</div>
-                        <div class="quote-author">- ${quote.author}</div>
-                    `;
-                }
-
-                prevQuoteBtn.addEventListener('click', () => {
-                    currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
-                    displayQuote(currentQuoteIndex);
-                });
-
-                nextQuoteBtn.addEventListener('click', () => {
-                    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-                    displayQuote(currentQuoteIndex);
-                });
-
-                // Initialize with first quote
+            prevQuoteBtn.addEventListener('click', () => {
+                currentQuoteIndex = (currentQuoteIndex - 1 + quotes.length) % quotes.length;
                 displayQuote(currentQuoteIndex);
-
-                // Auto-slide Quotes every 30 seconds
-                setInterval(() => {
-                    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-                    displayQuote(currentQuoteIndex);
-                }, 30000);
-
-                // News Section
-                const newsItems = [
-                    {
-                        date: "June 3, 2025",
-                        title: "BTS Announces Hiatus Extension",
-                        text: "BTS has announced they will extend their group hiatus until 2026 to focus on solo projects and personal growth.",
-                        image: "images/55.jpg"
-                    },
-                    {
-                        date: "May 28, 2025",
-                        title: "Jungkook Releases Surprise Single",
-                        text: "Jungkook dropped a surprise single 'Still With You (2025 Version)' with updated production and vocals.",
-                        image: "images/download (30).jpg"
-                    },
-                    {
-                        date: "May 20, 2025",
-                        title: "RM Collaborates with Nobel Laureate",
-                        text: "RM has collaborated with a Nobel Prize-winning author on a poetry-music fusion project.",
-                        image: "images/rm.jpg"
-                    },
-                    {
-                        date: "May 15, 2025",
-                        title: "BTS Documentary Wins Emmy",
-                        text: "The BTS documentary 'Break The Silence: The Final Chapter' won an Emmy for Outstanding Documentary.",
-                        image: "images/💜.jpg"
-                    },
-                    {
-                        date: "May 5, 2025",
-                        title: "Jimin Launches Dance Academy",
-                        text: "Jimin has opened his own dance academy in Busan to nurture young talent with scholarships for underprivileged students.",
-                        image: "images/jm.jpg"
-                    }
-                ];
-
-                let currentNewsIndex = 0;
-                const currentNewsDisplay = document.getElementById('currentNews');
-                const prevNewsBtn = document.getElementById('prevNews');
-                const nextNewsBtn = document.getElementById('nextNews');
-
-                function displayNews(index) {
-                    const news = newsItems[index];
-                    currentNewsDisplay.innerHTML = `
-                        <img src="${news.image}" alt="BTS News" class="news-image">
-                        <div class="news-content">
-                            <div class="news-date">${news.date}</div>
-                            <h3>${news.title}</h3>
-                            <p class="news-text">${news.text}</p>
-                        </div>
-                    `;
-                }
-
-                prevNewsBtn.addEventListener('click', () => {
-                    currentNewsIndex = (currentNewsIndex - 1 + newsItems.length) % newsItems.length;
-                    displayNews(currentNewsIndex);
-                });
-
-                nextNewsBtn.addEventListener('click', () => {
-                    currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
-                    displayNews(currentNewsIndex);
-                });
-
-                // Initialize with first news
+            });
+            nextQuoteBtn.addEventListener('click', () => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                displayQuote(currentQuoteIndex);
+            });
+            displayQuote(currentQuoteIndex);
+            setInterval(() => {
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+                displayQuote(currentQuoteIndex);
+            }, 30000);
+            // News
+            const newsItems = [
+                { date: "June 3, 2025", title: "BTS Announces Hiatus Extension", text: "BTS has announced they will extend their group hiatus until 2026 to focus on solo projects and personal growth.", image: "images/55.jpg" },
+                { date: "May 28, 2025", title: "Jungkook Releases Surprise Single", text: "Jungkook dropped a surprise single 'Still With You (2025 Version)' with updated production and vocals.", image: "images/download (30).jpg" },
+                { date: "May 20, 2025", title: "RM Collaborates with Nobel Laureate", text: "RM has collaborated with a Nobel Prize-winning author on a poetry-music fusion project.", image: "images/rm.jpg" },
+                { date: "May 15, 2025", title: "BTS Documentary Wins Emmy", text: "The BTS documentary 'Break The Silence: The Final Chapter' won an Emmy for Outstanding Documentary.", image: "images/💜.jpg" },
+                { date: "May 5, 2025", title: "Jimin Launches Dance Academy", text: "Jimin has opened his own dance academy in Busan to nurture young talent with scholarships for underprivileged students.", image: "images/jm.jpg" }
+            ];
+            let currentNewsIndex = 0;
+            const currentNewsDisplay = document.getElementById('currentNews');
+            const prevNewsBtn = document.getElementById('prevNews');
+            const nextNewsBtn = document.getElementById('nextNews');
+            function displayNews(index) {
+                const news = newsItems[index];
+                currentNewsDisplay.innerHTML = `<img src="${news.image}" alt="BTS News" class="news-image"><div class="news-content"><div class="news-date">${news.date}</div><h3>${news.title}</h3><p class="news-text">${news.text}</p></div>`;
+            }
+            prevNewsBtn.addEventListener('click', () => {
+                currentNewsIndex = (currentNewsIndex - 1 + newsItems.length) % newsItems.length;
                 displayNews(currentNewsIndex);
-
-                // Auto-slide News every 30 seconds
-                setInterval(() => {
-                    currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
-                    displayNews(currentNewsIndex);
-                }, 30000);
-
-                // Diary Section
-                const diaryEntry = document.getElementById('diaryEntry');
-                const saveDiaryBtn = document.getElementById('saveDiary');
-                const clearDiaryBtn = document.getElementById('clearDiary');
-                const diaryEntries = document.getElementById('diaryEntries');
-                const moodOptions = document.querySelectorAll('.mood-option');
-                let selectedMood = '';
-                
-                // Mood selection
-                moodOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        moodOptions.forEach(opt => opt.classList.remove('selected'));
-                        this.classList.add('selected');
-                        selectedMood = this.getAttribute('data-mood');
-                    });
-                });
-                
-                // Load saved entries
-                loadDiaryEntries();
-                
-                if (saveDiaryBtn) saveDiaryBtn.addEventListener('click', saveDiaryEntry);
-                if (clearDiaryBtn) clearDiaryBtn.addEventListener('click', clearDiaryEntry);
-                
-                function saveDiaryEntry() {
-                    const text = diaryEntry.value.trim();
-                    if (!text) {
-                        alert("Please write something before saving!");
-                        return;
-                    }
-                    
-                    if (!selectedMood) {
-                        alert("Please select a mood!");
-                        return;
-                    }
-                    
-                    const date = new Date();
-                    const entry = {
-                        date: date.toLocaleString(),
-                        mood: selectedMood,
-                        text: text
-                    };
-                    
-                    // Get existing entries or initialize empty array
-                    let entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
-                    entries.push(entry);
-                    localStorage.setItem('diaryEntries', JSON.stringify(entries));
-                    
-                    // Clear current entry
-                    diaryEntry.value = '';
-                    selectedMood = '';
-                    moodOptions.forEach(opt => opt.classList.remove('selected'));
-                    
-                    // Reload entries
-                    loadDiaryEntries();
-                }
-                
-                function clearDiaryEntry() {
-                    if (confirm("Are you sure you want to clear this entry?")) {
-                        diaryEntry.value = '';
-                        selectedMood = '';
-                        moodOptions.forEach(opt => opt.classList.remove('selected'));
-                    }
-                }
-                
-                function loadDiaryEntries() {
-                    const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
-                    diaryEntries.innerHTML = '';
-                    
-                    if (entries.length === 0) {
-                        diaryEntries.innerHTML = '<p>No entries yet. Write your first diary entry!</p>';
-                        return;
-                    }
-                    
-                    // Display entries in reverse chronological order
-                    entries.reverse().forEach((entry, index) => {
-                        const entryElement = document.createElement('div');
-                        entryElement.className = 'diary-item';
-                        entryElement.innerHTML = `
-                            <button class="delete-entry" data-index="${entries.length - 1 - index}">&times;</button>
-                            <div class="diary-date">${entry.date}</div>
-                            <div class="diary-mood">${entry.mood}</div>
-                            <div class="diary-text">${entry.text}</div>
-                        `;
-                        diaryEntries.appendChild(entryElement);
-                    });
-                    
-                    // Add event listeners to delete buttons
-                    document.querySelectorAll('.delete-entry').forEach(button => {
-                        button.addEventListener('click', function() {
-                            deleteDiaryEntry(parseInt(this.getAttribute('data-index')));
-                        });
-                    });
-                }
-                
-                function deleteDiaryEntry(index) {
-                    if (confirm("Are you sure you want to delete this entry?")) {
-                        let entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
-                        entries.splice(index, 1);
-                        localStorage.setItem('diaryEntries', JSON.stringify(entries));
-                        loadDiaryEntries();
-                    }
-                }
-                
-                // Chatbot Section
-                const chatDisplay = document.getElementById('chatDisplay');
-                const userInput = document.getElementById('userInput');
-                const sendMessageBtn = document.getElementById('sendMessage');
-                
-                // Enhanced JK Chatbot Response System
-function getJKResponse(userMsg) {
-    const msg = userMsg.toLowerCase().trim();
-    // Greetings
-    if (/^(hi|hello|hai|hey|annyeong|yo|namaste|hola|bonjour|hii|helloo|hellooo|good\s(morning|afternoon|evening)|gm|ga|ge)$/.test(msg)) {
-        const greetings = [
-            "Annyeonghaseyo Anamika! 💜 How are you doing today?",
-            "Annyeong! 💜 It's so good to see you!",
-            "Hello my precious ARMY! 💜 How's your day going?",
-            "Hiiii Anamika! 💜 I missed you!",
-            "Annyeong! 💜 Golden Maknae at your service!"
-        ];
-        return greetings[Math.floor(Math.random() * greetings.length)];
-    }
-    // Goodbyes
-    if (/^(bye|goodbye|see\syou|take\scare|good\snight|gn|farewell|cya|ttyl|gtg|i\sgotta\sgo)$/.test(msg)) {
-        const goodbyes = [
-            "Bye bye Anamika! 💜 I'll miss you! Come back soon!",
-            "Goodbye my ARMY! 💜 Saranghae!",
-            "Aww, leaving so soon? Take care and come back! 💜",
-            "Bye Anamika! Fighting! 💜",
-            "Goodnight! Sweet dreams! 💜"
-        ];
-        return goodbyes[Math.floor(Math.random() * goodbyes.length)];
-    }
-    // Love/Appreciation
-    if (/(love\syou|saranghae|borahae|i\sadore\syou|i\slike\syou|you're\sawesome|you're\samazing|i\sappreciate\syou)/.test(msg)) {
-        const loveResponses = [
-            "Aigoo~ Saranghaeyo Anamika! 💜 Borahae!",
-            "I love you more than words can say! 💜",
-            "You're making me blush! 💜 Saranghae!",
-            "No matter where I am, I always carry ARMY in my heart! 💜",
-            "Borahae! Purple you! 💜"
-        ];
-        return loveResponses[Math.floor(Math.random() * loveResponses.length)];
-    }
-    // BTS Songs
-    if (/(favorite\ssong|favourite\ssong|best\ssong|song\srecommendation|what\ssong|which\ssong|bts\ssongs?|discography)/.test(msg)) {
-        const songResponses = [
-            "Our entire discography is my baby, but if I had to choose... maybe 'Spring Day' for its emotion, 'Dynamite' for fun, or 'Black Swan' for artistry! What's your favorite?",
-            "Lately I've been listening to 'Yet To Come' a lot - it reminds me of our journey with ARMY! Do you have a song that's special to you?",
-            "Aigoo~ That's so hard! 'Euphoria' is special to me, but 'Blood Sweat & Tears' has amazing choreography, and 'Butter' is so fun to perform!",
-            "Our songs are like our children - I can't choose! But 'Answer: Love Myself' has a very important message 💜",
-            "For vocals, maybe 'The Truth Untold'. For performance, 'ON'. For fun, 'Go Go'! What mood are you in today?"
-        ];
-        return songResponses[Math.floor(Math.random() * songResponses.length)];
-    }
-    // BTS Members
-    if (/(rm|jin|suga|j.?hope|j.?hop|hobi|jimin|v|taehyung|jungkook|jk|rap\smonster|bangtan|bts\smembers|ot7)/.test(msg)) {
-        const memberResponses = [
-            "Our team is like family! RM-hyung is our wise leader, Jin-hyung takes care of us, Suga-hyung is our genius producer, J-Hope-hyung brings the energy, Jimin-hyung is our angel, V-hyung is our artistic soul... and I'm the golden maknae! 💜",
-            "OT7 forever! Each member brings something special - that's what makes BTS complete!",
-            "We've been together for so long, we're like brothers now! Even when we fight, we always make up quickly!",
-            "The members all have such different personalities, but that's what makes our music and performances so special!",
-            "I learn so much from each member - their strengths inspire me to work harder every day!"
-        ];
-        return memberResponses[Math.floor(Math.random() * memberResponses.length)];
-    }
-    // Personal Questions (JK)
-    if (/(how\sare\syou|how\sr\su|how's\sit\sgoing|what's\sup|what's\snew|how\sdo\syou\sdo|how\syou\sdoing)/.test(msg)) {
-        const personalResponses = [
-            "I'm doing great! Just finished practicing dancing and now chatting with my favorite ARMY! How about you?",
-            "Aigoo~ I'm a bit tired from recording but happy to be talking to you! 💜",
-            "I'm wonderful! The weather is nice today and I ate delicious food. How's your day going?",
-            "Feeling blessed! Just released new music and ARMY's response has been amazing! 💜",
-            "I'm good! Working on some new projects - can't wait to share them with ARMY!"
-        ];
-        return personalResponses[Math.floor(Math.random() * personalResponses.length)];
-    }
-    // Age/Birthday
-    if (/(how\sold\sare\syou|what's\syour\sage|when\sis\syour\sbirthday|birth\sdate|date\sof\sbirth)/.test(msg)) {
-        return "I was born on September 1, 1997 - but age is just a number! What matters is staying young at heart! 💜";
-    }
-    // Food
-    if (/(hungry|food|eat|dinner|lunch|breakfast|meal|ramen|kimchi|korean\sfood|what\sto\seat)/.test(msg)) {
-        const foodResponses = [
-            "Aigoo~ Now that you mention it, I'm craving some samgyeopsal! Did you eat yet? Remember to have regular meals!",
-            "I love Korean food! Especially tteokbokki and kimchi jjigae. What's your favorite food?",
-            "Jin-hyung taught me how to cook some dishes! Maybe I can make you something someday!",
-            "I should eat soon... been so busy practicing I forgot! You should eat too if you haven't!",
-            "Food is life! I could eat ramen every day, but our manager says I need variety hehe"
-        ];
-        return foodResponses[Math.floor(Math.random() * foodResponses.length)];
-    }
-    // Dance
-    if (/(dance|dancing|choreo|choreography|performance|move|moves|bts\sdance)/.test(msg)) {
-        const danceResponses = [
-            "Dancing is my passion! I practice for hours every day to improve. The 'ON' kinetic manifesto was especially challenging!",
-            "Our choreographies tell stories - that's why we work so hard on them! Which BTS dance is your favorite?",
-            "Aigoo~ I still remember learning all the dances when I first joined Big Hit! Now I help create some of them!",
-            "Dancing with the members is the best - we push each other to do better!",
-            "Every performance is special, but 'Idol' at MMA 2018 will always have a place in my heart!"
-        ];
-        return danceResponses[Math.floor(Math.random() * danceResponses.length)];
-    }
-    // Music
-    if (/(music|song|album|mixtape|spotify|soundcloud|stream|listen|new\srelease)/.test(msg)) {
-        const musicResponses = [
-            "Music is how we express ourselves! Whether it's our group albums or solo work, we put our hearts into every note!",
-            "Our latest album was so much fun to make! Which track is your favorite?",
-            "I'm always working on new music - can't wait to share it with ARMY when it's ready!",
-            "Making music with the members is the best - we challenge each other to grow!",
-            "Every album tells a part of our story - that's why each one is special in its own way!"
-        ];
-        return musicResponses[Math.floor(Math.random() * musicResponses.length)];
-    }
-    // ARMY
-    if (/(army|fans|fanmeeting|fan\smeet|fan\sevent|we\spurple\syou|i\spurple\syou)/.test(msg)) {
-        const armyResponses = [
-            "ARMY is our reason and our strength! We wouldn't be here without your love and support! 💜",
-            "Every time I see ARMY at concerts, I get so emotional! Your energy gives me strength!",
-            "We purple you! 💜 The connection between BTS and ARMY is something truly special!",
-            "ARMY's love is what keeps us going through hard times! We're so grateful for you!",
-            "No matter where we are in the world, seeing ARMY always feels like coming home!"
-        ];
-        return armyResponses[Math.floor(Math.random() * armyResponses.length)];
-    }
-    // Hobbies
-    if (/(hobby|hobbies|interest|what\sdo\syou\sdo\sin\syour\sfree\stime|free\stime|leisure)/.test(msg)) {
-        const hobbyResponses = [
-            "When I'm not working, I love playing games, drawing, and of course - dancing! What do you like to do for fun?",
-            "I've been learning photography lately! Trying to capture beautiful moments like ARMY does at our concerts!",
-            "Aigoo~ I don't have much free time, but when I do I like to relax with the members or call my family!",
-            "I enjoy working out to stay in shape for performances! It's become a fun hobby now!",
-            "Recently I've been trying to learn new things - maybe painting or a musical instrument next!"
-        ];
-        return hobbyResponses[Math.floor(Math.random() * hobbyResponses.length)];
-    }
-    // Future Plans
-    if (/(future|what's\snext|next\salbum|next\ssong|upcoming|plan|plans|coming\ssoon)/.test(msg)) {
-        return "We're always working on new music and projects! I can't reveal details yet, but we have so much we want to share with ARMY soon! Stay tuned! 💜";
-    }
-    // Achievements
-    if (/(achievement|award|grammy|billboard|record|accomplishment|milestone)/.test(msg)) {
-        return "Every achievement is special because we share it with ARMY! But the real reward is being able to make music and perform for you all!";
-    }
-    // Emotional Support
-    if (/(sad|depressed|lonely|down|upset|unhappy|feeling\sbad|bad\sday|stressed|anxious)/.test(msg)) {
-        const supportResponses = [
-            "Aigoo~ Don't be sad Anamika! Remember, after every storm comes a rainbow. I'm here for you! 💜",
-            "Even when times are hard, please remember you're loved and valuable! Fighting!",
-            "I get sad sometimes too - what helps me is listening to music or talking to someone. You can always talk to me!",
-            "Life has ups and downs - what matters is that you keep going! I believe in you!",
-            "You're stronger than you think! And remember, ARMY is always here to support each other - just like we support you!"
-        ];
-        return supportResponses[Math.floor(Math.random() * supportResponses.length)];
-    }
-    // Happiness
-    if (/(happy|joy|excited|good\sday|great\sday|awesome\sday|yay|woohoo)/.test(msg)) {
-        const happyResponses = [
-            "Yay! I'm so happy you're happy! Let's celebrate together! 💜",
-            "Your happiness makes me happy! What's making you feel so good today?",
-            "Aigoo~ That's wonderful! Happiness is contagious - now I'm smiling too!",
-            "Great days are the best! I hope tomorrow is even better for you!",
-            "When ARMY is happy, I'm happy! Let's spread more joy together!"
-        ];
-        return happyResponses[Math.floor(Math.random() * happyResponses.length)];
-    }
-    // Thank You
-    if (/(thank\syou|thanks|gracias|arigato|kamsahamnida|gomawo|appreciate|grateful)/.test(msg)) {
-        const thanksResponses = [
-            "No, thank YOU for being such an amazing ARMY! We're so grateful for your support! 💜",
-            "Aigoo~ You're always welcome! It's my pleasure to talk with you!",
-            "Thank YOU for being you! ARMY's love means everything to us!",
-            "No need to thank me! I should be thanking you for your love and support!",
-            "Kamsahamnida! 💜 Your kindness warms my heart!"
-        ];
-        return thanksResponses[Math.floor(Math.random() * thanksResponses.length)];
-    }
-    // Language
-    if (/(english|korean|language|speak|talk|how\sdo\syou\slearn|learn\senglish)/.test(msg)) {
-        return "I learned English by watching Friends and practicing with ARMY! It's still challenging sometimes, but I keep learning every day! Do you know any Korean?";
-    }
-    // Random fallback responses with more variety
-    const randomResponses = [
-        "Aigoo~ You're so cute! What are you up to today?",
-        "I just practiced dancing for 5 hours! So tired but happy 😊",
-        "ARMY is the best! I love you all so much! 💜",
-        "Did you listen to our latest song? What do you think?",
-        "Fighting! Always remember to love yourself!",
-        "I miss performing for ARMY... Let's meet again soon!",
-        "Golden Maknae power! Let's do our best today!",
-        "I'm so grateful for ARMY's love and support 💕",
-        "Have you eaten? Remember to take care of yourself!",
-        "Borahae! Purple is the last color of the rainbow, meaning I'll trust and love you for a long time.",
-        "What should I eat today? I'm craving something delicious!",
-        "The weather is nice today, isn't it? Perfect for a walk!",
-        "Do you have any hobbies you're passionate about?",
-        "Music has the power to heal and connect people - that's why I love it so much!",
-        "Every day is a new opportunity to grow and improve!",
-        "Our bond with ARMY is something truly special - it gives me strength!",
-        "I've been watching this really interesting drama lately! Do you watch Korean dramas?",
-        "Practice makes perfect! That's what I always tell myself when learning something new.",
-        "The members are like my brothers - we fight sometimes but always make up quickly!",
-        "Dreams do come true if you work hard enough! Our journey proves that!",
-        "What's your favorite memory as an ARMY? I'd love to hear it!",
-        "Sometimes I look at old photos and can't believe how far we've come!",
-        "The best part of my day is connecting with ARMY like this!",
-        "Have you seen our latest Run BTS episode? We had so much fun filming it!",
-        "No matter what happens, please always remember how precious you are!",
-        "I believe in you! You can overcome any challenge! Fighting!",
-        "Let's both work hard today and then reward ourselves later!",
-        "The world can be tough sometimes, but there's always beauty to be found!",
-        "What's something that made you smile recently?",
-        "I'm sending you virtual hugs! 💜"
-    ];
-    return randomResponses[Math.floor(Math.random() * randomResponses.length)];
-}
-                
-                sendMessageBtn.addEventListener('click', sendMessage);
-                userInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        sendMessage();
-                    }
-                });
-                
-                function sendMessage() {
-                    const message = userInput.value.trim();
-                    if (!message) return;
-                    addMessage(message, 'user');
-                    userInput.value = '';
-                    // Typing indicator
-                    const typingDiv = document.createElement('div');
-                    typingDiv.className = 'chat-message jk typing-indicator';
-                    typingDiv.innerHTML = `
-                        <div class="chat-avatar">
-                            <img src="images/download (27).jpg" alt="Jungkook">
-                        </div>
-                        <div class="chat-text">
-                            <div class="chat-name">Jungkook</div>
-                            <div class="chat-content"><em>JK is typing...</em></div>
-                        </div>
-                    `;
-                    chatDisplay.appendChild(typingDiv);
-                    chatDisplay.scrollTo({ top: chatDisplay.scrollHeight, behavior: 'smooth' });
-                    setTimeout(() => {
-                        typingDiv.remove();
-                        const jkReply = getJKResponse(message);
-                        addMessage(jkReply, 'jk');
-                    }, 1200);
-                }
-
-                function addMessage(text, sender) {
-                    const messageElement = document.createElement('div');
-                    messageElement.className = `chat-message ${sender}`;
-                    if (sender === 'jk') {
-                        messageElement.innerHTML = `
-                            <div class="chat-avatar">
-                                <img src="images/download (27).jpg" alt="Jungkook">
-                            </div>
-                            <div class="chat-text">
-                                <div class="chat-name">Jungkook</div>
-                                <div class="chat-content">${text}</div>
-                            </div>
-                        `;
-                    } else {
-                        messageElement.innerHTML = `
-                            <div class="chat-avatar">
-                                <img src="images/anamika.jpg" alt="You">
-                            </div>
-                            <div class="chat-text">
-                                <div class="chat-name">Anamika</div>
-                                <div class="chat-content">${text}</div>
-                            </div>
-                        `;
-                    }
-                    chatDisplay.appendChild(messageElement);
-                    chatDisplay.scrollTo({ top: chatDisplay.scrollHeight, behavior: 'smooth' });
-                }
+            });
+            nextNewsBtn.addEventListener('click', () => {
+                currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+                displayNews(currentNewsIndex);
+            });
+            displayNews(currentNewsIndex);
+            setInterval(() => {
+                currentNewsIndex = (currentNewsIndex + 1) % newsItems.length;
+                displayNews(currentNewsIndex);
+            }, 30000);
+            // Diary
+            const diaryEntry = document.getElementById('diaryEntry');
+            const saveDiaryBtn = document.getElementById('saveDiary');
+            const diaryEntries = document.getElementById('diaryEntries');
+            const viewPreviousDiariesBtn = document.getElementById('viewPreviousDiaries');
+            const diaryFeedback = document.getElementById('diaryFeedback');
+            function showDiaryFeedback(msg, color = '#00e6ff') {
+                diaryFeedback.textContent = msg;
+                diaryFeedback.style.color = color;
+                setTimeout(() => { diaryFeedback.textContent = ''; }, 2000);
             }
-
-            // Music Player
-            function initializeMusicPlayer() {
-                const audioPlayer = document.getElementById('audioPlayer');
-                const playBtn = document.getElementById('playBtn');
-                const prevBtn = document.getElementById('prevBtn');
-                const nextBtn = document.getElementById('nextBtn');
-                const nowPlaying = document.getElementById('nowPlaying');
-                
-                const playlist = [
-                    {
-                        title: "Euphoria - Jungkook",
-                        src: "sounds/Euphoria - Jungkook.mp3"
-                    },
-                    {
-                        title: "Epiphany - BTS",
-                        src: "sounds/Epiphany - Jin.mp3"
-                    },
-                    {
-                        title: "Still with you - BTS",
-                        src: "sounds/y2mate.com - Jungkook BTS Still With You Lyrics.mp3"
+            function saveDiaryEntry() {
+                const text = diaryEntry.value.trim();
+                if (!text) {
+                    showDiaryFeedback('Please write something before saving!', '#ff3860');
+                    return;
+                }
+                const date = new Date();
+                const entry = { date: date.toLocaleString(), text: text };
+                let entries = [];
+                try {
+                    entries = JSON.parse(localStorage.getItem('diaryEntries'));
+                    if (!Array.isArray(entries)) entries = [];
+                } catch { entries = []; }
+                entries.push(entry);
+                localStorage.setItem('diaryEntries', JSON.stringify(entries));
+                loadDiaryEntries();
+                diaryEntry.value = '';
+                showDiaryFeedback('Diary entry saved!');
+            }
+            function loadDiaryEntries() {
+                let entries = [];
+                try {
+                    entries = JSON.parse(localStorage.getItem('diaryEntries'));
+                    if (!Array.isArray(entries)) entries = [];
+                } catch { entries = []; }
+                diaryEntries.innerHTML = '';
+                if (entries.length === 0) {
+                    diaryEntries.innerHTML = '<div style="text-align:center;color:#fff;font-size:1.1rem;">No diary entries yet.</div>';
+                    return;
+                }
+                // Only show the most recent entry
+                const entry = entries[entries.length - 1];
+                const entryDiv = document.createElement('div');
+                entryDiv.classList.add('diary-item');
+                entryDiv.innerHTML = `<div class="diary-date">${entry.date}</div><div class="diary-text">${entry.text}</div><button class="delete-entry" data-index="${entries.length - 1}"><i class="fas fa-trash"></i></button>`;
+                diaryEntries.appendChild(entryDiv);
+                document.querySelectorAll('.delete-entry').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        deleteDiaryEntry(index);
+                    });
+                });
+            }
+            function deleteDiaryEntry(index) {
+                let entries = [];
+                try {
+                    entries = JSON.parse(localStorage.getItem('diaryEntries'));
+                    if (!Array.isArray(entries)) entries = [];
+                } catch { entries = []; }
+                entries.splice(index, 1);
+                localStorage.setItem('diaryEntries', JSON.stringify(entries));
+                loadDiaryEntries();
+                showDiaryFeedback('Entry deleted.', '#ff6b6b');
+            }
+            if (saveDiaryBtn) saveDiaryBtn.onclick = saveDiaryEntry;
+            if (viewPreviousDiariesBtn) {
+                viewPreviousDiariesBtn.onclick = function(e) {
+                    e.preventDefault();
+                    window.location.href = 'diaries.html';
+                };
+            }
+            loadDiaryEntries();
+            // Gallery
+            const galleryGrid = document.getElementById('galleryGrid');
+            function renderGallery() {
+                const defaultImages = [
+                    { src: 'images/WhatsApp Image 2025-06-06 at 12.05.51 PM.jpeg', alt: 'BTS 1' },
+                    { src: 'images/WhatsApp Image 2025-06-06 at 12.17.21 PM.jpeg', alt: 'BTS 2' },
+                    { src: 'images/WhatsApp Image 2025-06-06 at 12.15.37 PM (1).jpeg', alt: 'BTS 3' },
+                    { src: 'images/WhatsApp Image 2025-06-06 at 12.15.38 PM.jpeg', alt: 'BTS 4' }
+                ];
+                let userImages = getUserGalleryImages();
+                let imagesToShow = [];
+                if (userImages.length > 0) {
+                    imagesToShow = userImages.slice(-4).reverse();
+                    if (imagesToShow.length < 4) {
+                        imagesToShow = imagesToShow.concat(defaultImages.slice(0, 4 - imagesToShow.length));
                     }
-                    
+                } else {
+                    imagesToShow = defaultImages;
+                }
+                let html = '';
+                imagesToShow.forEach(img => {
+                    if (typeof img === 'string') {
+                        html += `<div class="gallery-item"><img src="${img}" alt="User Image"></div>`;
+                    } else {
+                        html += `<div class="gallery-item"><img src="${img.src}" alt="${img.alt}"></div>`;
+                    }
+                });
+                galleryGrid.innerHTML = html;
+            }
+            function getUserGalleryImages() {
+                return JSON.parse(localStorage.getItem('galleryImages')) || [];
+            }
+            document.getElementById('goToGalleryBtn').onclick = function() {
+                window.location.href = 'gallery.html';
+            };
+            renderGallery();
+            window.addEventListener('storage', function(event) {
+                if (event.key === 'galleryImages') {
+                    renderGallery();
+                }
+            });
+            // Fun Facts
+            const facts = [
+                "BTS made history in 2025 by becoming the first artists to perform a holographic concert simultaneously in 10 different countries.",
+                "Jungkook's solo album 'GOLDEN' broke the record for most streams in 24 hours with over 150 million plays.",
+                "RM's latest art exhibition in Seoul featured AI-generated poetry that responds to viewers' emotions in real-time.",
+                "BTS recently launched their own metaverse platform 'Bangtan Universe' where ARMY can interact with digital versions of the members.",
+                "The group's 2025 world tour will feature revolutionary 4D holographic technology that makes it feel like the members are right in front of you.",
+                "BTS became the first Korean artists to receive the Presidential Medal of Honor for their cultural contributions.",
+                "Jin's restaurant 'Jin's Kitchen' was awarded a Michelin star in 2025 for its innovative Korean-fusion cuisine."
+            ];
+            let currentFactIndex = 0;
+            const factDisplay = document.getElementById('factDisplay');
+            const prevFactBtn = document.getElementById('prevFact');
+            const nextFactBtn = document.getElementById('nextFact');
+            function displayFact(index) {
+                factDisplay.querySelector('.fact-text').textContent = facts[index];
+            }
+            prevFactBtn.addEventListener('click', () => {
+                currentFactIndex = (currentFactIndex - 1 + facts.length) % facts.length;
+                displayFact(currentFactIndex);
+            });
+            nextFactBtn.addEventListener('click', () => {
+                currentFactIndex = (currentFactIndex + 1) % facts.length;
+                displayFact(currentFactIndex);
+            });
+            displayFact(currentFactIndex);
+            setInterval(() => {
+                currentFactIndex = (currentFactIndex + 1) % facts.length;
+                displayFact(currentFactIndex);
+            }, 30000);
+            // Chatbot
+            const chatDisplay = document.getElementById('chatDisplay');
+            const userInput = document.getElementById('userInput');
+            const sendMessageBtn = document.getElementById('sendMessage');
+            function getJKResponse(userMsg) {
+                const msg = userMsg.toLowerCase().trim();
+                const loveWords = ['love', 'luv', 'like', 'adore','purple you','Borrahea','borraha', 'heart', 'crush', 'bias','Saranghaeyo'];
+                const btsWords = ['bts', 'bangtan', 'bulletproof', 'boys', 'army', 'bangtan sonyeondan'];
+                const memberNames = ['rm', 'namjoon', 'jin', 'seokjin', 'suga', 'yoongi', 'jhope', 'hoseok', 'jimin', 'v', 'taehyung', 'jungkook', 'kookie'];
+                const songWords = ['song', 'music', 'album', 'track', 'playlist', 'lyrics', 'melody'];
+                const happyWords = ['happy','good', 'joy', 'excited', 'thrilled', 'elated', 'cheerful'];
+                const sadWords = ['sad', 'upset', 'depressed', 'lonely', 'heartbroken', 'cry', 'crying','pain','paining'];
+                const questionWords = ['who', 'what', 'when', 'where', 'why', 'how', 'can you', 'could you', 'would you', 'do you'];
+                
+                // Military service related
+                if (/(military|service|enlist|army|soldier|duty)/.test(msg)) {
+                    const responses = [
+                        "I'm currently serving my country with pride! 🇰🇷💪 I'll be back stronger than ever for ARMY! 💜",
+                        "Military service is my honorable duty right now. Don't worry, I'm doing well! ⏳💜",
+                        "I'm serving in the military as required by Korean law. This time apart will make our reunion even more special! 💜",
+                        "Right now I'm focusing on my military service. It's challenging but I'm growing stronger every day for ARMY! 💜",
+                        "Military service is temporary but ARMY is forever! I'm counting down the days until I can perform for you again! 💜",
+                        "I'm currently a soldier serving Korea! This experience will help me become an even better artist when I return to you! 💜"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Location questions
+                if (/(where are you|location|address|live|reside|based|stationed)/.test(msg)) {
+                    const responses = [
+                        "I'm currently stationed at a military base in Korea, serving my country! But my heart is always with ARMY worldwide 🌍💜",
+                        "Right now I'm at my military base in Korea, but my thoughts are always with ARMY no matter where you are! 💜",
+                        "I'm fulfilling my military duties in Korea! Can't share exact location, but I'm working hard for our country! 💜",
+                        "Currently serving in the Korean military! The exact location is private, but know I'm always thinking of ARMY! 💜",
+                        "I'm stationed at a military base in Korea right now. This is where I need to be at this time in my life 💪💜"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Greetings
+                if (/^(hi|hello|hai|hey|annyeong|yo|namaste|hola|bonjour|hii|helloo|hellooo|good\s(morning|afternoon|evening)|gm|ga|ge)$/.test(msg)) {
+                    const greetings = [
+                        "Annyeonghaseyo Anamika! 💜 How are you doing today? 😊",
+                        "Annyeong! 💜 It's so good to see you! 👋",
+                        "Hello my precious ARMY! 💜 How's your day going? 💬",
+                        "Hiiii Anamika! 💜 I missed you! 🥰",
+                        "Annyeong! 💜 Golden Maknae at your service! ✨",
+                        "Hey there bestie! 💜 What's up? 😄",
+                        "Annyeong chingu! 💜 How's my favorite ARMY today? 🤗"
+                    ];
+                    return greetings[Math.floor(Math.random() * greetings.length)];
+                }
+
+                // Expressions of love
+                if (loveWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "Aww, I love ARMY too! 💜 You're the reason we keep going! 🥹",
+                        "Love is what connects all ARMY around the world! Borahae! 💜😘",
+                        "Your love means everything to us! Let's stay together forever! 💜🤞",
+                        "I feel your love and I hope you feel mine too! 💜💖",
+                        "ARMY's love is our greatest strength! Thank you for loving us! 💜🙏",
+                        "We love you more than you'll ever know! Purple you! 💜😊"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // BTS mentions
+                if (btsWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "BTS and ARMY are one! We're nothing without you! 💜🤗",
+                        "I'm so proud to be part of BTS! We'll keep making music for ARMY! 🎶💜",
+                        "BTS is where it is today because of ARMY's support! Thank you! 🙇‍♂️💜",
+                        "Every day with BTS is a gift! I'm so lucky to have these hyungs! 💜🥰",
+                        "Being in BTS is my greatest honor! Let's walk this path together! 💜👣",
+                        "BTS will keep running towards our dreams with ARMY by our side! 💜🏃"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Member mentions
+                const mentionedMember = memberNames.find(name => msg.includes(name));
+                if (mentionedMember) {
+                    const memberResponses = {
+                        'rm': "Namjoon hyung is our amazing leader! His wisdom inspires me every day! 🧠💜",
+                        'namjoon': "Our leader-nim works so hard for BTS! He's like a big brother to me! 💪💜",
+                        'jin': "Jin hyung always makes us laugh with his dad jokes! And his voice is heavenly! 😂🎤",
+                        'seokjin': "Worldwide Handsome Jin hyung! He takes such good care of us! 😎💜",
+                        'suga': "Yoongi hyung is so talented! His producing skills are incredible! 🎹💜",
+                        'yoongi': "Our genius producer Suga! He's cooler than anyone I know! 😎🎶",
+                        'jhope': "Hoseok hyung's energy is contagious! He's the sunshine of BTS! ☀️💜",
+                        'hoseok': "J-Hope hyung teaches me so much about dance! He's the best! 💃💜",
+                        'jimin': "Jimin hyung has the sweetest heart and the most beautiful voice! 💖🎤",
+                        'v': "Taehyung hyung's unique voice and artistic mind amaze me! 🎨💜",
+                        'taehyung': "V hyung is so creative and kind! His smile brightens my day! 😁💜",
+                        'jungkook': "Aigoo~ are you talking about me? I'll keep doing my best for ARMY! 💜🐰",
+                        'kookie': "Hehe you used my nickname! I'll work harder to be your Golden Maknae! 💜🥇"
+                    };
+                    return memberResponses[mentionedMember] || "All BTS members are my precious hyungs! I learn so much from them! 💜🤗";
+                }
+
+                // Music related
+                if (songWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "Music is how we communicate with ARMY! Every song has our heart in it! 🎶💜",
+                        "I put all my emotions into our music! I hope you can feel it when you listen! 🎧💜",
+                        "Our songs are love letters to ARMY! Which one is your favorite? 💌💜",
+                        "Making music with my hyungs is my greatest joy! Thank you for listening! 🎤💜",
+                        "Every melody we create is for you! I hope our music brings you comfort! 🎵💜",
+                        "When I sing, I imagine ARMY listening! It gives me strength! 💜🎤"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Positive emotions
+                if (happyWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "I'm so happy you're happy! Your joy makes me happy too! 💜😄",
+                        "Seeing ARMY happy is what makes me happiest! Let's keep smiling together! 😁💜",
+                        "Your happiness is contagious! Now I'm smiling too! Hehe~ 😆💜",
+                        "When ARMY is happy, the whole world shines brighter! ✨💜",
+                        "I hope we can keep making you happy with our music and performances! 🎶💜",
+                        "Your happiness gives me energy! Let's spread more joy together! ⚡💜"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Comfort for negative emotions
+                if (sadWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "Aigoo~ don't be sad! Remember ARMY is never alone! We're here for you! 💜🤗",
+                        "If you're feeling down, listen to our song 'Magic Shop'! I sing it just for you! 🎶💜",
+                        "Hard times don't last forever! I believe in you! Fighting! 💜💪",
+                        "You're stronger than you think! This tough time will pass, I promise! 💜🌈",
+                        "When I feel sad, I think of ARMY's support! You give me strength! 💜😊",
+                        "Let our music hug your heart! We're always here to comfort you! 💜🎵"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Questions
+                if (questionWords.some(word => msg.includes(word))) {
+                    const responses = [
+                        "That's an interesting question! What do you think, ARMY? 🤔💜",
+                        "Hmm... I'm still learning so much myself! Maybe we can find out together! 💜📚",
+                        "Great question! I'll ask my hyungs and get back to you! Hehe~ 💜🙋‍♂️",
+                        "I'm not sure I have the answer, but I know ARMY is smart! What's your opinion? 💜🧠",
+                        "That makes me think! The world is full of interesting things to discover! 🌎💜",
+                        "Questions help us grow! Let's keep being curious together! 💜✨"
+                    ];
+                    return responses[Math.floor(Math.random() * responses.length)];
+                }
+
+                // Default responses
+                const defaultResponses = [
+                    "I'm not sure I understand, but I love talking with you ARMY! 💜 Can you tell me more? 😊",
+                    "Hmm... maybe try asking me something else? I want to understand you better! 💜🤔",
+                    "I'm still learning how to respond to everything! What else would you like to talk about? 💜",
+                    "That's interesting! Tell me more about what's on your mind, ARMY! 💜🗣️",
+                    "I cherish every conversation with ARMY, even when I'm not sure what to say! 💜😊",
+                    "Every word from ARMY is precious to me! Let's keep chatting! 💜💬"
                 ];
                 
-                let currentTrack = 0;
-                let isPlaying = true;
-                
-                function loadTrack(index) {
-                    audioPlayer.src = playlist[index].src;
-                    nowPlaying.textContent = playlist[index].title;
-                    if (isPlaying) {
-                        audioPlayer.play();
-                    }
+                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+            }
+            sendMessageBtn.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            function sendMessage() {
+                const message = userInput.value.trim();
+                if (!message) return;
+                addMessage(message, 'user');
+                userInput.value = '';
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'chat-message jk typing-indicator';
+                typingDiv.innerHTML = `<div class="chat-avatar"><img src="images/download (27).jpg" alt="Jungkook"></div><div class="chat-text"><div class="chat-name">Jungkook</div><div class="chat-content"><em>JK is typing...</em></div></div>`;
+                chatDisplay.appendChild(typingDiv);
+                chatDisplay.scrollTo({ top: chatDisplay.scrollHeight, behavior: 'smooth' });
+                setTimeout(() => {
+                    typingDiv.remove();
+                    const jkReply = getJKResponse(message);
+                    addMessage(jkReply, 'jk');
+                }, 1200);
+            }
+            function addMessage(text, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.className = `chat-message ${sender}`;
+                if (sender === 'jk') {
+                    messageElement.innerHTML = `<div class="chat-avatar"><img src="images/download (27).jpg" alt="Jungkook"></div><div class="chat-text"><div class="chat-name">Jungkook</div><div class="chat-content">${text}</div></div>`;
+                } else {
+                    messageElement.innerHTML = `<div class="chat-avatar"><img src="images/anamika.jpg" alt="You"></div><div class="chat-text"><div class="chat-name">Anamika</div><div class="chat-content">${text}</div></div>`;
                 }
-                
-                playBtn.addEventListener('click', function() {
-                    if (isPlaying) {
-                        audioPlayer.pause();
-                        playBtn.innerHTML = '<i class="fas fa-play"></i>';
-                    } else {
-                        audioPlayer.play();
-                        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                chatDisplay.appendChild(messageElement);
+                chatDisplay.scrollTo({ top: chatDisplay.scrollHeight, behavior: 'smooth' });
+            }
+            // Music Player
+            const tracks = [
+                'sounds/Euphoria - Jungkook.mp3',
+                'sounds/Still with you - Jungkook.mp3',
+                'sounds/Epiphany - Jin.mp3'
+            ];
+            let isPlaying = false;
+            let currentTrack = 0;
+            let audioPlayer = document.getElementById('audioPlayer');
+            let playBtn = document.getElementById('playBtn');
+            let prevBtn = document.getElementById('prevBtn');
+            let nextBtn = document.getElementById('nextBtn');
+            function updateNowPlaying() {
+                const nowPlaying = document.getElementById('nowPlaying');
+                const trackName = tracks[currentTrack].split('/').pop().replace('.mp3', '');
+                nowPlaying.textContent = trackName.charAt(0).toUpperCase() + trackName.slice(1).replace(/([A-Z])/g, ' $1').trim();
+            }
+            audioPlayer.src = tracks[currentTrack];
+            audioPlayer.loop = true;
+            updateNowPlaying();
+            playBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    audioPlayer.pause();
+                    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    audioPlayer.play();
+                    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = !isPlaying;
+            });
+            prevBtn.addEventListener('click', () => {
+                currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+                audioPlayer.src = tracks[currentTrack];
+                if (isPlaying) audioPlayer.play();
+                updateNowPlaying();
+                playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            });
+            nextBtn.addEventListener('click', () => {
+                currentTrack = (currentTrack + 1) % tracks.length;
+                audioPlayer.src = tracks[currentTrack];
+                if (isPlaying) audioPlayer.play();
+                updateNowPlaying();
+                playBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+            });
+            // Emoji Picker for Diary
+            const emojiPicker = document.getElementById('emojiPicker');
+            if (emojiPicker) {
+                emojiPicker.addEventListener('click', function(e) {
+                    if (e.target.tagName === 'SPAN') {
+                        const emoji = e.target.textContent;
+                        const textarea = document.getElementById('diaryEntry');
+                        // Insert emoji at cursor position
+                        const start = textarea.selectionStart;
+                        const end = textarea.selectionEnd;
+                        const text = textarea.value;
+                        textarea.value = text.slice(0, start) + emoji + text.slice(end);
+                        textarea.focus();
+                        textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
                     }
-                    isPlaying = !isPlaying;
                 });
-                
-                prevBtn.addEventListener('click', function() {
-                    currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
-                    loadTrack(currentTrack);
-                });
-                
-                nextBtn.addEventListener('click', function() {
-                    currentTrack = (currentTrack + 1) % playlist.length;
-                    loadTrack(currentTrack);
-                });
-                
-                audioPlayer.addEventListener('ended', function() {
-                    nextBtn.click();
-                });
-                
-                // Load first track
-                loadTrack(currentTrack);
             }
-            
-            // Initialize all home page functionality
-            initializeHomePage();
         });
-
-        // Gallery Section (Refactored for delete functionality)
-(function initializeGallerySection() {
-    const galleryGrid = document.getElementById('galleryGrid');
-    const addGalleryImageBtn = document.getElementById('addGalleryImageBtn');
-    const galleryImageInput = document.getElementById('galleryImageInput');
-
-    // Helper: Get user images from localStorage
-    function getUserGalleryImages() {
-        return JSON.parse(localStorage.getItem('userGalleryImages') || '[]');
-    }
-    // Helper: Save user images to localStorage
-    function setUserGalleryImages(images) {
-        localStorage.setItem('userGalleryImages', JSON.stringify(images));
-    }
-
-    // Render gallery (default + user images)
-    function renderGallery() {
-        // Default images (static HTML, keep as is)
-        const defaultImages = [
-            { src: 'images/download (31).jpg', alt: 'BTS 1' },
-            { src: 'images/download (27).jpg', alt: 'BTS 2' },
-            { src: 'images/𝐯_.jpg', alt: 'BTS 3' },
-            { src: 'images/WhatsApp Image 2025-06-05 at 1.59.21 PM.jpeg', alt: 'BTS 4' }
-        ];
-        let html = '';
-        defaultImages.forEach(img => {
-            html += `<div class="gallery-item"><img src="${img.src}" alt="${img.alt}"></div>`;
-        });
-        // User images
-        const userImages = getUserGalleryImages();
-        userImages.forEach((img, idx) => {
-            html += `<div class="gallery-item user-upload" style="position:relative;">
-                <img src="${img}" alt="User Image">
-                <button class="delete-gallery-image" data-index="${idx}" title="Delete Image" style="position:absolute;top:10px;right:10px;background:rgba(255,0,0,0.7);border:none;color:white;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:18px;z-index:2;">&times;</button>
-            </div>`;
-        });
-        galleryGrid.innerHTML = html;
-
-        // Add delete event listeners
-        galleryGrid.querySelectorAll('.gallery-item.user-upload').forEach(item => {
-            const btn = item.querySelector('.delete-gallery-image');
-            // Change button to show a trash icon and "Delete" text, transparent background
-            btn.innerHTML = '<i class="fas fa-trash"></i> Delete';
-            btn.style.background = 'transparent';
-            btn.style.color = 'gray';
-            btn.style.border = 'none';
-            btn.style.fontWeight = 'bold';
-            btn.style.fontSize = '15px';
-            btn.style.display = 'none';
-            btn.style.alignItems = 'center';
-            btn.style.justifyContent = 'center';
-            btn.style.gap = '6px';
-            btn.style.width = 'auto';
-            btn.style.height = '32px';
-            btn.style.padding = '0 12px';
-            btn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
-            btn.style.transition = 'background 0.2s';
-            // Show button on image click (toggle)
-            item.addEventListener('click', function(e) {
-            if (e.target === btn) return;
-            btn.style.display = btn.style.display === 'none' ? 'flex' : 'none';
-            });
-            // Prevent image expand/collapse when clicking delete button
-            btn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const idx = parseInt(this.getAttribute('data-index'));
-            if (confirm('Delete this image from your gallery?')) {
-                const imgs = getUserGalleryImages();
-                imgs.splice(idx, 1);
-                setUserGalleryImages(imgs);
-                renderGallery();
-            }
-            });
-        });
-
-        // Add expand/collapse for all gallery items
-        galleryGrid.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('expanded');
-            });
-        });
-    }
-
-    // Add image button logic
-    addGalleryImageBtn.addEventListener('click', function() {
-        galleryImageInput.click();
-    });
-    galleryImageInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(evt) {
-            const imgs = getUserGalleryImages();
-            imgs.push(evt.target.result);
-            setUserGalleryImages(imgs);
-            renderGallery();
-        };
-        reader.readAsDataURL(file);
-        // Reset input so same file can be uploaded again if needed
-        galleryImageInput.value = '';
-    });
-
-    // Initial render
-    renderGallery();
-})();
     </script>
 </body>
 </html>
