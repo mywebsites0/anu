@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>BTS Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            /* Match homepage background: purple gradient */
+            background: linear-gradient(135deg, #a4508b 0%, #5f0a87 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .gallery-header {
+            background: #6a0dad;
+            color: white;
+            padding: 30px 0 20px 0;
+            text-align: center;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+        .gallery-container {
+            max-width: 900px;
+            margin: 30px auto 0 auto;
+            background: rgba(0,0,0,0.7); /* semi-transparent black so gradient shows */
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(106,13,173,0.08);
+            padding: 30px 20px 40px 20px;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+        }
+        .gallery-item {
+            position: relative;
+            background: #f3f3f3;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 160px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.2s;
+        }
+        .gallery-item img:hover {
+            transform: scale(1.05);
+        }
+        .delete-gallery-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #fff;
+            border: none;
+            color: #6a0dad;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .delete-gallery-image:hover {
+            background: #ffe6fa;
+            color: #d726a3;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #6a0dad;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #4b0870;
+        }
+        @media (max-width: 600px) {
+            .gallery-header { font-size: 1.3rem; padding: 18px 0 10px 0; }
+            .gallery-container { padding: 10px 2vw 20px 2vw; }
+            .gallery-grid { gap: 10px; }
+            .gallery-item img { height: 90px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery-header">BTS Gallery</div>
+    <div class="gallery-container">
+        <button class="back-btn" onclick="window.location.href='index2.html'">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </button>
+        <button id="addGalleryImageBtn" style="margin-bottom:15px;"><i class="fas fa-plus"></i> Add Image</button>
+        <input type="file" id="galleryImageInput" accept="image/*" style="display:none;">
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+    <script>
+        // Default images (same as home page)
+        const defaultImages = [
+            { src: 'images/download (31).jpg', alt: 'BTS 1' },
+            { src: 'images/WhatsApp Image 2025-06-06 at 12.17.21 PM.jpeg', alt: 'BTS 2' },
+            { src: 'images/WhatsApp Image 2025-06-06 at 12.15.37 PM (1).jpeg', alt: 'BTS 3' },
+            { src: 'images/WhatsApp Image 2025-06-06 at 12.15.38 PM.jpeg', alt: 'BTS 4' }
+        ];
+        function getUserGalleryImages() {
+            return JSON.parse(localStorage.getItem('userGalleryImages') || '[]');
+        }
+        function getHiddenDefaultGalleryImages() {
+            return JSON.parse(localStorage.getItem('hiddenDefaultGalleryImages') || '[]');
+        }
+        function setHiddenDefaultGalleryImages(arr) {
+            localStorage.setItem('hiddenDefaultGalleryImages', JSON.stringify(arr));
+        }
+        function renderGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            let userImages = getUserGalleryImages();
+            let hiddenDefaults = getHiddenDefaultGalleryImages();
+            let html = '';
+            // Show all user images (most recent first)
+            userImages.slice().reverse().forEach((img, idx) => {
+                html += `<div class="gallery-item">
+                    <img src="${img}" alt="User Image" class="gallery-img-clickable">
+                    <button class="delete-gallery-image" data-type="user" data-index="${userImages.length - 1 - idx}" title="Delete"><i class='fas fa-trash'></i></button>
+                </div>`;
+            });
+            // Show default images after user images, skip hidden
+            defaultImages.forEach((img, idx) => {
+                if (!hiddenDefaults.includes(idx)) {
+                    html += `<div class="gallery-item">
+                        <img src="${img.src}" alt="${img.alt}" class="gallery-img-clickable">
+                        <button class="delete-gallery-image" data-type="default" data-index="${idx}" title="Delete"><i class='fas fa-trash'></i></button>
+                    </div>`;
+                }
+            });
+            galleryGrid.innerHTML = html;
+            // Image click logic: show image in overlay on gallery page
+            document.querySelectorAll('.gallery-img-clickable').forEach(img => {
+                img.addEventListener('click', function(e) {
+                    showImageOverlay(this.src, this.alt);
+                });
+            });
+            // Delete logic for both user and default images
+            document.querySelectorAll('.delete-gallery-image').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const type = this.getAttribute('data-type');
+                    const idx = parseInt(this.getAttribute('data-index'));
+                    if (type === 'user') {
+                        let imgs = getUserGalleryImages();
+                        imgs.splice(idx, 1);
+                        localStorage.setItem('userGalleryImages', JSON.stringify(imgs));
+                    } else if (type === 'default') {
+                        let hidden = getHiddenDefaultGalleryImages();
+                        if (!hidden.includes(idx)) {
+                            hidden.push(idx);
+                            setHiddenDefaultGalleryImages(hidden);
+                        }
+                    }
+                    renderGallery();
+                });
+            });
+        }
+        renderGallery();
+        // Upload logic
+        const addGalleryImageBtn = document.getElementById('addGalleryImageBtn');
+        const galleryImageInput = document.getElementById('galleryImageInput');
+        addGalleryImageBtn.addEventListener('click', function() {
+            galleryImageInput.click();
+        });
+        galleryImageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            let userImages = getUserGalleryImages();
+            const reader = new FileReader();
+            reader.onload = function(evt) {
+                userImages = getUserGalleryImages(); // re-fetch in case of race
+                userImages.push(evt.target.result);
+                localStorage.setItem('userGalleryImages', JSON.stringify(userImages));
+                renderGallery();
+            };
+            reader.readAsDataURL(file);
+            galleryImageInput.value = '';
+        });
+        // Overlay logic
+        function showImageOverlay(src, alt) {
+            // Remove existing overlay if any
+            const oldOverlay = document.getElementById('galleryImageOverlay');
+            if (oldOverlay) oldOverlay.remove();
+            // Create overlay
+            const overlay = document.createElement('div');
+            overlay.id = 'galleryImageOverlay';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.background = 'rgba(0,0,0,0.85)';
+            overlay.style.display = 'flex';
+            overlay.style.alignItems = 'center';
+            overlay.style.justifyContent = 'center';
+            overlay.style.zIndex = '9999';
+            overlay.innerHTML = `
+                <img src="${src}" alt="${alt}" style="max-width:90vw; max-height:80vh; border-radius:12px; box-shadow:0 8px 32px #000;">
+                <button id="closeGalleryOverlayBtn" style="position:absolute;top:30px;right:40px;font-size:2.2rem;background:none;border:none;color:white;cursor:pointer;z-index:10000;"><i class='fas fa-times'></i></button>
+            `;
+            document.body.appendChild(overlay);
+            document.getElementById('closeGalleryOverlayBtn').onclick = function() {
+                overlay.remove();
+            };
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) overlay.remove();
+            });
+        }
+    </script>
+</body>
+</html>
