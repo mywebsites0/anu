@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Anamika's BTS World</title>
     <style>
         /* General Styles */
@@ -679,6 +679,248 @@
                 height: 150px;
             }
         }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 15px;
+            }
+            .login-container {
+                max-width: 98vw;
+                margin: 0 auto;
+                padding: 10vw 2vw;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            }
+            .bts-image {
+                max-height: 120px;
+                border-radius: 8px;
+            }
+            .login-container h1 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            .form-group input {
+                padding: 10px;
+                font-size: 15px;
+                border-radius: 6px;
+            }
+            button, .form-group input, .chat-input, #diaryEntry {
+                font-size: 15px;
+            }
+            .home-content {
+                padding: 5vw 2vw 60px 2vw;
+            }
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 15px 0;
+                margin-bottom: 15px;
+            }
+            .profile-image {
+                width: 80px;
+                height: 80px;
+                border-width: 3px;
+            }
+            .header h1 {
+                font-size: 20px;
+                padding: 0 5px;
+            }
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0;
+            }
+            .left-column, .right-column {
+                gap: 15px;
+            }
+            .section {
+                padding: 12px 6px;
+                border-radius: 10px;
+            }
+            .section h2 {
+                font-size: 18px;
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+            }
+            .section h2::after {
+                width: 50px;
+                height: 2px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .gallery-item {
+                height: 90px;
+                border-radius: 6px;
+            }
+            .gallery-item img {
+                border-radius: 6px;
+            }
+            .facts-list li {
+                padding: 8px 8px 8px 35px;
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+            .facts-list li::before {
+                left: 8px;
+                top: 8px;
+                font-size: 16px;
+            }
+            .news-item {
+                flex-direction: column;
+                gap: 8px;
+                padding-bottom: 10px;
+            }
+            .news-image {
+                width: 100%;
+                height: 80px;
+                border-radius: 6px;
+            }
+            .news-content h3 {
+                font-size: 15px;
+            }
+            .news-date {
+                font-size: 11px;
+            }
+            .news-text {
+                font-size: 13px;
+            }
+            #diaryEntry {
+                height: 90px;
+                font-size: 14px;
+                border-radius: 6px;
+            }
+            .diary-actions {
+                gap: 8px;
+                margin-bottom: 10px;
+            }
+            .saved-entries {
+                margin-top: 15px;
+                padding-top: 10px;
+            }
+            .diary-item {
+                padding: 10px;
+                border-radius: 6px;
+                margin-bottom: 8px;
+            }
+            .diary-date {
+                font-size: 12px;
+                gap: 5px;
+            }
+            .diary-mood {
+                font-size: 16px;
+                top: 5px;
+                left: 5px;
+            }
+            .delete-entry {
+                width: 22px;
+                height: 22px;
+                font-size: 16px;
+                top: 5px;
+                right: 5px;
+            }
+            .mood-selector {
+                gap: 5px;
+                margin-bottom: 8px;
+            }
+            .mood-option {
+                width: 28px;
+                height: 28px;
+                font-size: 16px;
+            }
+            .chat-container {
+                gap: 10px;
+                max-height: 180px;
+                padding-right: 0;
+            }
+            .chat-message {
+                flex-direction: column;
+                gap: 5px;
+                padding: 8px;
+                border-radius: 8px;
+            }
+            .chat-avatar {
+                width: 36px;
+                height: 36px;
+                border-width: 2px;
+            }
+            .chat-text {
+                padding-top: 2px;
+                font-size: 14px;
+            }
+            .chat-name {
+                font-size: 13px;
+            }
+            .chat-input-container {
+                gap: 5px;
+                margin-top: 10px;
+            }
+            .chat-input {
+                padding: 8px;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+            .send-button {
+                padding: 0 10px;
+                font-size: 16px;
+            }
+            .music-bar {
+                flex-direction: column;
+                gap: 5px;
+                padding: 8px 2px 8px 2px;
+                font-size: 13px;
+                bottom: 0;
+                left: 0;
+                width: 100vw;
+            }
+            .now-playing {
+                font-size: 13px;
+                min-width: 0;
+            }
+            .music-controls button {
+                font-size: 18px;
+                padding: 6px 8px;
+            }
+        }
+        @media (max-width: 400px) {
+            .login-container {
+                padding: 5vw 1vw;
+            }
+            .header h1 {
+                font-size: 15px;
+            }
+            .section h2 {
+                font-size: 15px;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item {
+                height: 60px;
+            }
+            .profile-image {
+                width: 50px;
+                height: 50px;
+            }
+            .music-bar {
+                font-size: 11px;
+            }
+        }
+        /* Make sure login/home page fills viewport and centers content vertically */
+        #login-page, .home-content {
+            min-height: 100vh;
+            min-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #login-page {
+            align-items: center;
+        }
+        .home-content {
+            align-items: stretch;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -763,20 +1005,6 @@
                         <button id="nextQuote">Next <i class="fas fa-chevron-right"></i></button>
                     </div>
                 </div>
-
-                <!-- Facts Section -->
-                <div class="section">
-                    <h2>BTS Fun Facts</h2>
-                    <ul class="facts-list">
-                        <li>BTS made history in 2025 by becoming the first artists to perform a holographic concert simultaneously in 10 different countries.</li>
-                        <li>Jungkook's solo album "GOLDEN" broke the record for most streams in 24 hours with over 150 million plays.</li>
-                        <li>RM's latest art exhibition in Seoul featured AI-generated poetry that responds to viewers' emotions in real-time.</li>
-                        <li>BTS recently launched their own metaverse platform "Bangtan Universe" where ARMY can interact with digital versions of the members.</li>
-                        <li>The group's 2025 world tour will feature revolutionary 4D holographic technology that makes it feel like the members are right in front of you.</li>
-                        <li>BTS became the first Korean artists to receive the Presidential Medal of Honor for their cultural contributions.</li>
-                        <li>Jin's restaurant "Jin's Kitchen" was awarded a Michelin star in 2025 for its innovative Korean-fusion cuisine.</li>
-                    </ul>
-                </div>
             </div>
 
             <!-- Right Column -->
@@ -799,23 +1027,6 @@
                     <div class="saved-entries" id="diaryEntries"></div>
                 </div>
 
-                <!-- News Section -->
-                <div class="section">
-                    <h2>Latest BTS News</h2>
-                    <div class="news-item" id="currentNews">
-                        <img src="images/bts-group.jpg" alt="BTS News" class="news-image">
-                        <div class="news-content">
-                            <div class="news-date">June 3, 2025</div>
-                            <h3>BTS Announces Hiatus Extension</h3>
-                            <p class="news-text">BTS has announced they will extend their group hiatus until 2026 to focus on solo projects and personal growth.</p>
-                        </div>
-                    </div>
-                    <div class="quote-nav">
-                        <button id="prevNews"><i class="fas fa-chevron-left"></i> Previous</button>
-                        <button id="nextNews">Next <i class="fas fa-chevron-right"></i></button>
-                    </div>
-                </div>
-
                 <!-- Chatbot Section -->
                 <div class="section">
                     <h2>Chat with JK</h2>
@@ -834,6 +1045,37 @@
                         <input type="text" class="chat-input" id="userInput" placeholder="Type your message to JK..." autocomplete="off">
                         <button class="send-button" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
                     </div>
+                </div>
+
+                <!-- News Section -->
+                <div class="section">
+                    <h2>Latest BTS News</h2>
+                    <div class="news-item" id="currentNews">
+                        <img src="images/bts-group.jpg" alt="BTS News" class="news-image">
+                        <div class="news-content">
+                            <div class="news-date">June 3, 2025</div>
+                            <h3>BTS Announces Hiatus Extension</h3>
+                            <p class="news-text">BTS has announced they will extend their group hiatus until 2026 to focus on solo projects and personal growth.</p>
+                        </div>
+                    </div>
+                    <div class="quote-nav">
+                        <button id="prevNews"><i class="fas fa-chevron-left"></i> Previous</button>
+                        <button id="nextNews">Next <i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- Facts Section -->
+                <div class="section">
+                    <h2>BTS Fun Facts</h2>
+                    <ul class="facts-list">
+                        <li>BTS made history in 2025 by becoming the first artists to perform a holographic concert simultaneously in 10 different countries.</li>
+                        <li>Jungkook's solo album "GOLDEN" broke the record for most streams in 24 hours with over 150 million plays.</li>
+                        <li>RM's latest art exhibition in Seoul featured AI-generated poetry that responds to viewers' emotions in real-time.</li>
+                        <li>BTS recently launched their own metaverse platform "Bangtan Universe" where ARMY can interact with digital versions of the members.</li>
+                        <li>The group's 2025 world tour will feature revolutionary 4D holographic technology that makes it feel like the members are right in front of you.</li>
+                        <li>BTS became the first Korean artists to receive the Presidential Medal of Honor for their cultural contributions.</li>
+                        <li>Jin's restaurant "Jin's Kitchen" was awarded a Michelin star in 2025 for its innovative Korean-fusion cuisine.</li>
+                    </ul>
                 </div>
             </div>
         </div>
