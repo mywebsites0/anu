@@ -511,8 +511,14 @@
 
         .chat-name {
             font-weight: bold;
-            color: #ff6b6b;
             margin-bottom: 5px;
+        }
+        .chat-message.jk .chat-name {
+            color: rgb(37, 174, 181);
+        }
+        .chat-message.user .chat-name,
+        .chat-message:not(.jk) .chat-name {
+            color: #880cc6; /* purple */
         }
 
         .chat-input-container {
@@ -539,7 +545,7 @@
 
         .chat-input:focus {
             outline: none;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.936);
         }
 
         .send-button {
