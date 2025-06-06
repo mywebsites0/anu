@@ -6,24 +6,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            min-height: 100vh;
+            margin: 0;
             color: #fff;
             font-family: Arial, sans-serif;
-            margin: 0;
-            min-height: 100vh;
+            /* Slideshow background: will be set by JS */
+            background: linear-gradient(rgba(106,13,173,0.7), rgba(44,83,100,0.7)), url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            transition: background-image 1s cubic-bezier(.4,0,.2,1);
         }
         .container {
             max-width: 700px;
             margin: 40px auto;
-            background: rgba(44, 83, 100, 0.85);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
-            padding: 30px 20px 40px 20px;
+            background: rgba(44, 13, 100, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(106,13,173,0.37);
+            padding: 36px 24px 44px 24px;
+            backdrop-filter: blur(2px);
         }
         h1 {
             text-align: center;
-            color: #00e6ff;
+            color: #c084fc;
             margin-bottom: 30px;
+            text-shadow: 0 2px 12px #6a0dad, 0 0 2px #fff;
         }
         .diary-list {
             display: flex;
@@ -31,53 +36,54 @@
             gap: 18px;
         }
         .diary-item {
-            background: rgba(255,255,255,0.08);
-            border-left: 4px solid #00e6ff;
-            border-radius: 8px;
-            padding: 18px 18px 12px 18px;
+            background: rgba(255,255,255,0.10);
+            border-left: 4px solid #c084fc;
+            border-radius: 12px;
+            padding: 20px 20px 14px 20px;
             position: relative;
             display: flex;
             align-items: flex-start;
             gap: 18px;
+            box-shadow: 0 2px 12px rgba(106,13,173,0.08);
         }
         .diary-avatar {
-            width: 48px;
-            height: 48px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             border: 2px solid #fff;
             object-fit: cover;
             margin-right: 10px;
+            box-shadow: 0 2px 8px #6a0dad44;
         }
         .diary-content {
             flex: 1;
         }
         .diary-date {
-            color: #00e6ff;
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-        }
-        .diary-mood {
-            font-size: 1.3rem;
+            color: #c084fc;
+            font-size: 1rem;
             margin-bottom: 6px;
         }
         .diary-text {
-            font-size: 1.1rem;
+            font-size: 1.13rem;
             margin-bottom: 6px;
+            line-height: 1.7;
         }
         .back-btn {
             display: inline-block;
             margin: 20px 0 0 0;
-            background: #6a0dad;
+            background: linear-gradient(90deg, #6a0dad 0%, #c084fc 100%);
             color: #fff;
             border: none;
-            border-radius: 8px;
-            padding: 10px 22px;
-            font-size: 1rem;
+            border-radius: 10px;
+            padding: 12px 28px;
+            font-size: 1.1rem;
             cursor: pointer;
             text-decoration: none;
+            box-shadow: 0 2px 8px #6a0dad44;
+            transition: background 0.2s;
         }
         .back-btn:hover {
-            background: #a4508b;
+            background: linear-gradient(90deg, #c084fc 0%, #6a0dad 100%);
         }
         .delete-entry {
             margin-top: 8px;
@@ -91,6 +97,23 @@
         .delete-entry:hover {
             background: #ff1a3d;
         }
+        @media (max-width: 700px) {
+            .container {
+                padding: 10px 2vw 20px 2vw;
+                margin: 10px 0;
+            }
+            .diary-item {
+                padding: 10px 8px 8px 8px;
+                border-radius: 8px;
+            }
+            .diary-avatar {
+                width: 36px;
+                height: 36px;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -100,6 +123,26 @@
         <div class="diary-list" id="diaryList"></div>
     </div>
     <script>
+        // Slideshow Unsplash images (purple/BTS aesthetic)
+        const diaryBackgrounds = [
+            'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=1350&q=80',
+            'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1350&q=80'
+        ];
+        let bgIndex = 0;
+        function setDiaryBackground(idx) {
+            document.body.style.backgroundImage = `linear-gradient(rgba(106,13,173,0.7), rgba(44,83,100,0.7)), url('${diaryBackgrounds[idx]}')`;
+        }
+        function startSlideshow() {
+            setDiaryBackground(bgIndex);
+            setInterval(() => {
+                bgIndex = (bgIndex + 1) % diaryBackgrounds.length;
+                setDiaryBackground(bgIndex);
+            }, 7000); // 7 seconds per image
+        }
+        window.addEventListener('DOMContentLoaded', startSlideshow);
         // Avatar options (should match those in index2.html)
         const avatarOptions = [
             'images/jungkook.jpg',
