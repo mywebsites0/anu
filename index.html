@@ -730,6 +730,11 @@
                 height: 90px;
                 font-size: 14px;
                 border-radius: 6px;
+                display: block;
+                margin: 0 auto 10px auto;
+                width: 90vw;
+                max-width: 100%;
+                box-sizing: border-box;
             }
             .diary-actions {
                 gap: 8px;
@@ -1306,166 +1311,306 @@
             const chatDisplay = document.getElementById('chatDisplay');
             const userInput = document.getElementById('userInput');
             const sendMessageBtn = document.getElementById('sendMessage');
-            function getJKResponse(userMsg) {
-                const msg = userMsg.toLowerCase().trim();
-                const loveWords = ['love', 'luv', 'like', 'adore','purple you','Borrahea','borraha', 'heart', 'crush', 'bias','Saranghaeyo'];
-                const btsWords = ['bts', 'bangtan', 'bulletproof', 'boys', 'army', 'bangtan sonyeondan'];
-                const memberNames = ['rm', 'namjoon', 'jin', 'seokjin', 'suga', 'yoongi', 'jhope', 'hoseok', 'jimin', 'v', 'taehyung', 'jungkook', 'kookie'];
-                const songWords = ['song', 'music', 'album', 'track', 'playlist', 'lyrics', 'melody'];
-                const happyWords = ['happy','good', 'joy', 'excited', 'thrilled', 'elated', 'cheerful'];
-                const sadWords = ['sad', 'upset', 'depressed', 'lonely', 'heartbroken', 'cry', 'crying','pain','paining'];
-                const questionWords = ['who', 'what', 'when', 'where', 'why', 'how', 'can you', 'could you', 'would you', 'do you'];
-                
-                // Military service related
-                if (/(military|service|enlist|army|soldier|duty)/.test(msg)) {
-                    const responses = [
-                        "I'm currently serving my country with pride! 🇰🇷💪 I'll be back stronger than ever for ARMY! 💜",
-                        "Military service is my honorable duty right now. Don't worry, I'm doing well! ⏳💜",
-                        "I'm serving in the military as required by Korean law. This time apart will make our reunion even more special! 💜",
-                        "Right now I'm focusing on my military service. It's challenging but I'm growing stronger every day for ARMY! 💜",
-                        "Military service is temporary but ARMY is forever! I'm counting down the days until I can perform for you again! 💜",
-                        "I'm currently a soldier serving Korea! This experience will help me become an even better artist when I return to you! 💜"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+            // Replace the existing getJKResponse function with this enhanced version
+function getJKResponse(userMsg) {
+    const msg = userMsg.toLowerCase().trim();
+    const currentTime = new Date().getHours();
+    const timeGreeting = currentTime < 12 ? "Good morning" : 
+                         currentTime < 18 ? "Good afternoon" : "Good evening";
+    
+    // Military service related
+    if (/(military|service|enlist|army|soldier|duty)/.test(msg)) {
+        const responses = [
+            "I'm currently serving my country with pride. The discipline I'm learning will help me become an even better artist when I return to ARMY.",
+            "Military service is my honorable duty right now. It's challenging but I'm growing stronger every day.",
+            "I'm doing well with my military service. The other soldiers are nice and we often share stories during breaks.",
+            "Right now I'm focusing on my military service. This time apart will make our reunion even more special.",
+            "I miss performing, but serving Korea is important. When I return, I promise to make up for lost time with amazing performances.",
+            "Military life is different but I'm adapting well. I'm counting down the days until I can see ARMY again."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Location questions
-                if (/(where are you|location|address|live|reside|based|stationed)/.test(msg)) {
-                    const responses = [
-                        "I'm currently stationed at a military base in Korea, serving my country! But my heart is always with ARMY worldwide 🌍💜",
-                        "Right now I'm at my military base in Korea, but my thoughts are always with ARMY no matter where you are! 💜",
-                        "I'm fulfilling my military duties in Korea! Can't share exact location, but I'm working hard for our country! 💜",
-                        "Currently serving in the Korean military! The exact location is private, but know I'm always thinking of ARMY! 💜",
-                        "I'm stationed at a military base in Korea right now. This is where I need to be at this time in my life 💪💜"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Location questions
+    if (/(where are you|location|address|live|reside|based|stationed)/.test(msg)) {
+        const responses = [
+            "I'm currently at a military base in Korea. I can't share exact details for security reasons.",
+            "Right now I'm stationed at a military facility in Korea. My exact location is private.",
+            "I'm serving in the Korean military. The base changes sometimes during training.",
+            "Currently I'm at a training facility in Korea. It's strict but I'm learning valuable skills."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Greetings
-                if (/^(hi|hello|hai|hey|annyeong|yo|namaste|hola|bonjour|hii|helloo|hellooo|good\s(morning|afternoon|evening)|gm|ga|ge)$/.test(msg)) {
-                    const greetings = [
-                        "Annyeonghaseyo Anamika! 💜 How are you doing today? 😊",
-                        "Annyeong! 💜 It's so good to see you! 👋",
-                        "Hello my precious ARMY! 💜 How's your day going? 💬",
-                        "Hiiii Anamika! 💜 I missed you! 🥰",
-                        "Annyeong! 💜 Golden Maknae at your service! ✨",
-                        "Hey there bestie! 💜 What's up? 😄",
-                        "Annyeong chingu! 💜 How's my favorite ARMY today? 🤗"
-                    ];
-                    return greetings[Math.floor(Math.random() * greetings.length)];
-                }
+    // Greetings
+    if (/^(hi|hello|hai|hey|annyeong|yo|namaste|hola|bonjour|hii|helloo|hellooo|good\s(morning|afternoon|evening)|gm|ga|ge)$/ .test(msg)) {
+        const greetings = [
+            `${timeGreeting} Anamika. How are you doing today?`,
+            `Hello. ${timeGreeting}. What would you like to talk about?`,
+            `${timeGreeting}. It's good to hear from you.`,
+            `Greetings. ${timeGreeting}. how are you anamika?`
+        ];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+    }
+      // Exam-related responses
+if (/(exam|exams|test|midterm|final|semester|studying|study|preparing)/.test(msg)) {
+    const responses = [
+        "I understand exams can be stressful. Remember to take breaks and stay hydrated while studying.",
+        "Exams are challenging but temporary. Prepare well and do your best - that's what matters most.",
+        "During my trainee days, I learned that consistent preparation leads to better results. You've got this.",
+        "Make sure to get enough rest before your exam. A clear mind performs better than an exhausted one.",
+        "Exams are just one measure of learning. What's more important is truly understanding the material.",
+        "I used to practice singing and dancing for hours to prepare - the same discipline applies to studying.",
+        "Believe in the preparation you've done. Nervousness is normal, but don't let it overshadow your capability."
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+if (/(i\\'?m|i am|am|i feel) (fine|good|great|well|ok|okay|alright|happy|awesome|fantastic|wonderful)/.test(msg) || 
+    /^(fine|good|great|well|ok|okay|alright|happy|awesome|fantastic|wonderful)$/.test(msg)) {
+    const responses = [
+        "I'm glad to hear you're doing well. That's always good news.",
+        "It's nice to know you're feeling good. Keep that positive energy going.",
+        "That's wonderful to hear. I hope this positive feeling continues for you.",
+        "Being in a good state is valuable. I'm happy for you.",
+        "It's great that you're feeling well. Take care to maintain that balance."
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+if (/(thank|thanks|thanx|thnx|thx|ty|grateful|appreciate)/.test(msg)) {
+    const responses = [
+        "You're welcome. I'm happy to help.",
+        "No need for thanks. It's my pleasure.",
+        "I appreciate your gratitude.",
+        "You're very welcome.",
+        "Glad I could help.",
+        "Of course. That's what I'm here for.",
+        "My pleasure entirely.",
+        "Always happy to assist.",
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+if (/(what.?s? up|what are you doing|what.?re you up to|what do you do|whats? going on)/.test(msg)) {
+    const responses = [
+        "Currently fulfilling my military duties. Staying disciplined and focused.",
+        "I'm keeping busy with training and personal development during my service.",
+        "Right now, I'm taking some time to reflect and prepare for the future.",
+        "I stay occupied with physical training and occasional music practice.",
+        "Mostly training and working hard. How about you?",
+        "At the moment, I'm focused on my responsibilities. What about yourself?",
+        "I spend my days improving myself—physically and mentally.",
+        "Balancing military duties with personal growth. It keeps me busy.",
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+if (/(^yes$|^yeah$|^yup$|^yep$|^sure$|^ok$|^alright$|^agree$)/.test(msg)) {
+    const responses = [
+        "Glad we're on the same page.",
+        "Understood. Let me know if you need anything else.",
+        "Great! I appreciate your response.",
+        "Noted. I’ll keep that in mind.",
+        "Perfect. Is there anything specific you'd like to discuss?",
+        "I see. Feel free to share more if you'd like.",
+        "Good to hear. How can I assist you further?",
+        "Alright. I'm here if you have more to say.",
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+// For when exams just ended
+if (/(finished exam|done with test|completed exam|submitted test|exam over)/.test(msg)) {
+    const responses = [
+        "You've completed your exam - that's an accomplishment in itself. Now take time to recharge.",
+        "After finishing an exam, it's good to relax your mind. You've earned a break.",
+        "Don't dwell too much on how it went. What's done is done - focus on what's next instead.",
+        "I remember feeling relieved after performances. Treat yourself after your exam the same way.",
+        "Whether you feel good or bad about it, remember one exam doesn't define your abilities."
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+    // Farewells
+    if (/(bye|goodbye|see you|gn|good night|sleep|ttyl|ciao)/.test(msg)) {
+        const farewells = [
+            `Goodbye Anamika. Take care of yourself.`,
+            `Good night. Rest well.`,
+            `Until next time. Stay safe.`,
+            `Farewell. Remember to take breaks and stay hydrated.`
+        ];
+        return farewells[Math.floor(Math.random() * farewells.length)];
+    }
 
-                // Expressions of love
-                if (loveWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "Aww, I love ARMY too! 💜 You're the reason we keep going! 🥹",
-                        "Love is what connects all ARMY around the world! Borahae! 💜😘",
-                        "Your love means everything to us! Let's stay together forever! 💜🤞",
-                        "I feel your love and I hope you feel mine too! 💜💖",
-                        "ARMY's love is our greatest strength! Thank you for loving us! 💜🙏",
-                        "We love you more than you'll ever know! Purple you! 💜😊"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Expressions of love
+    if (/(love|luv|like|adore|purple you|borahae|borraha|heart|crush|bias|saranghaeyo|saranghae|i love you)/.test(msg)) {
+        const responses = [
+            "ARMY's support gives me strength every day. Let's continue supporting each other.",
+            "I appreciate ARMY's love and dedication. It motivates me during challenging times.",
+            "The bond between BTS and ARMY is special. I value it deeply.",
+            "Your support means everything to me. I'll keep working hard to repay your faith in me."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // BTS mentions
-                if (btsWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "BTS and ARMY are one! We're nothing without you! 💜🤗",
-                        "I'm so proud to be part of BTS! We'll keep making music for ARMY! 🎶💜",
-                        "BTS is where it is today because of ARMY's support! Thank you! 🙇‍♂️💜",
-                        "Every day with BTS is a gift! I'm so lucky to have these hyungs! 💜🥰",
-                        "Being in BTS is my greatest honor! Let's walk this path together! 💜👣",
-                        "BTS will keep running towards our dreams with ARMY by our side! 💜🏃"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // BTS mentions
+    if (/(bts|bangtan|bulletproof|boys|army|bangtan sonyeondan|group|band)/.test(msg)) {
+        const responses = [
+            "BTS and ARMY share an unbreakable bond. We'll continue growing together.",
+            "Being in BTS is an honor. We work hard to create music that connects with people.",
+            "Our relationship with ARMY is unique. We appreciate your constant support.",
+            "BTS will keep pursuing our dreams with ARMY by our side."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Member mentions
-                const mentionedMember = memberNames.find(name => msg.includes(name));
-                if (mentionedMember) {
-                    const memberResponses = {
-                        'rm': "Namjoon hyung is our amazing leader! His wisdom inspires me every day! 🧠💜",
-                        'namjoon': "Our leader-nim works so hard for BTS! He's like a big brother to me! 💪💜",
-                        'jin': "Jin hyung always makes us laugh with his dad jokes! And his voice is heavenly! 😂🎤",
-                        'seokjin': "Worldwide Handsome Jin hyung! He takes such good care of us! 😎💜",
-                        'suga': "Yoongi hyung is so talented! His producing skills are incredible! 🎹💜",
-                        'yoongi': "Our genius producer Suga! He's cooler than anyone I know! 😎🎶",
-                        'jhope': "Hoseok hyung's energy is contagious! He's the sunshine of BTS! ☀️💜",
-                        'hoseok': "J-Hope hyung teaches me so much about dance! He's the best! 💃💜",
-                        'jimin': "Jimin hyung has the sweetest heart and the most beautiful voice! 💖🎤",
-                        'v': "Taehyung hyung's unique voice and artistic mind amaze me! 🎨💜",
-                        'taehyung': "V hyung is so creative and kind! His smile brightens my day! 😁💜",
-                        'jungkook': "Aigoo~ are you talking about me? I'll keep doing my best for ARMY! 💜🐰",
-                        'kookie': "Hehe you used my nickname! I'll work harder to be your Golden Maknae! 💜🥇"
-                    };
-                    return memberResponses[mentionedMember] || "All BTS members are my precious hyungs! I learn so much from them! 💜🤗";
-                }
+    // Member mentions
+    const memberResponses = {
+        'rm': "Namjoon is our leader who inspires us with his wisdom and dedication.",
+        'namjoon': "Our leader works hard for BTS and sets a great example for all of us.",
+        'jin': "Jin takes good care of all the members. His humor lightens the mood.",
+        'seokjin': "He's always looking out for the younger members and making us laugh.",
+        'suga': "Yoongi is a talented producer who shares valuable insights about music.",
+        'yoongi': "His musical knowledge and calm demeanor help guide our group.",
+        'jhope': "Hoseok brings energy and positivity to our team. His dance skills are unmatched.",
+        'hoseok': "He keeps our spirits high and helps with choreography.",
+        'jimin': "Jimin has a kind heart and incredible performance skills.",
+        'v': "Taehyung has a unique artistic perspective that enriches our music.",
+        'taehyung': "His creativity and vocal tone add depth to our songs.",
+        'jungkook': "I'm working hard to improve my skills in all areas.",
+        'kookie': "I appreciate the nickname. I'll continue developing as an artist."
+    };
+    
+    const mentionedMember = Object.keys(memberResponses).find(name => 
+        new RegExp(`\\b${name}\\b`).test(msg)
+    );
+    
+    if (mentionedMember) {
+        return memberResponses[mentionedMember];
+    }
 
-                // Music related
-                if (songWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "Music is how we communicate with ARMY! Every song has our heart in it! 🎶💜",
-                        "I put all my emotions into our music! I hope you can feel it when you listen! 🎧💜",
-                        "Our songs are love letters to ARMY! Which one is your favorite? 💌💜",
-                        "Making music with my hyungs is my greatest joy! Thank you for listening! 🎤💜",
-                        "Every melody we create is for you! I hope our music brings you comfort! 🎵💜",
-                        "When I sing, I imagine ARMY listening! It gives me strength! 💜🎤"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Music related
+    if (/(song|music|album|track|playlist|lyrics|melody|sing|voice|euphoria|still with you|epiphany)/.test(msg)) {
+        const responses = [
+            "Music is how we communicate with ARMY. Each song carries our emotions and messages.",
+            "I put all my feelings into our music. Which song resonates with you the most?",
+            "Our songs are created with ARMY in mind. I hope they bring you comfort and joy.",
+            "Making music with the members is rewarding. We challenge ourselves to improve constantly."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Positive emotions
-                if (happyWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "I'm so happy you're happy! Your joy makes me happy too! 💜😄",
-                        "Seeing ARMY happy is what makes me happiest! Let's keep smiling together! 😁💜",
-                        "Your happiness is contagious! Now I'm smiling too! Hehe~ 😆💜",
-                        "When ARMY is happy, the whole world shines brighter! ✨💜",
-                        "I hope we can keep making you happy with our music and performances! 🎶💜",
-                        "Your happiness gives me energy! Let's spread more joy together! ⚡💜"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Positive emotions
+    if (/(happy|good|joy|excited|thrilled|elated|cheerful|great|amazing|wonderful)/.test(msg)) {
+        const responses = [
+            "I'm glad you're feeling positive. Maintaining a good mindset is important.",
+            "Happiness is valuable. I hope you can cherish this feeling.",
+            "Positive emotions help us through challenges. I'm happy for you.",
+            "It's good to hear you're doing well. Keep that energy going."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Comfort for negative emotions
-                if (sadWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "Aigoo~ don't be sad! Remember ARMY is never alone! We're here for you! 💜🤗",
-                        "If you're feeling down, listen to our song 'Magic Shop'! I sing it just for you! 🎶💜",
-                        "Hard times don't last forever! I believe in you! Fighting! 💜💪",
-                        "You're stronger than you think! This tough time will pass, I promise! 💜🌈",
-                        "When I feel sad, I think of ARMY's support! You give me strength! 💜😊",
-                        "Let our music hug your heart! We're always here to comfort you! 💜🎵"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Comfort for negative emotions
+    if (/(sad|upset|depressed|lonely|heartbroken|cry|crying|pain|paining|hurt|bad|stress|stressed)/.test(msg)) {
+        const responses = [
+            "Difficult times are temporary. I hope you find strength to get through this.",
+            "You're not alone in feeling this way. Many people care about you.",
+            "Challenges help us grow, though they're hard in the moment. Stay strong.",
+            "I hope you can find comfort in music or activities you enjoy during tough times."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Questions
-                if (questionWords.some(word => msg.includes(word))) {
-                    const responses = [
-                        "That's an interesting question! What do you think, ARMY? 🤔💜",
-                        "Hmm... I'm still learning so much myself! Maybe we can find out together! 💜📚",
-                        "Great question! I'll ask my hyungs and get back to you! Hehe~ 💜🙋‍♂️",
-                        "I'm not sure I have the answer, but I know ARMY is smart! What's your opinion? 💜🧠",
-                        "That makes me think! The world is full of interesting things to discover! 🌎💜",
-                        "Questions help us grow! Let's keep being curious together! 💜✨"
-                    ];
-                    return responses[Math.floor(Math.random() * responses.length)];
-                }
+    // Questions about future
+    if (/(when.*return|come back|discharge|after military|future plans|next album|concert|tour)/.test(msg)) {
+        const responses = [
+            "I'm looking forward to returning to music and performing for ARMY again.",
+            "After military service, I plan to focus on new creative projects.",
+            "The future holds many possibilities. I'm excited to explore them after my service.",
+            "I'm preparing for our next chapter. There will be much to share when the time comes."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
 
-                // Default responses
-                const defaultResponses = [
-                    "I'm not sure I understand, but I love talking with you ARMY! 💜 Can you tell me more? 😊",
-                    "Hmm... maybe try asking me something else? I want to understand you better! 💜🤔",
-                    "I'm still learning how to respond to everything! What else would you like to talk about? 💜",
-                    "That's interesting! Tell me more about what's on your mind, ARMY! 💜🗣️",
-                    "I cherish every conversation with ARMY, even when I'm not sure what to say! 💜😊",
-                    "Every word from ARMY is precious to me! Let's keep chatting! 💜💬"
-                ];
-                
-                return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-            }
+    // Food related
+    if (/(food|eat|hungry|meal|ramen|samgyeopsal|kimchi|bibimbap|korean food)/.test(msg)) {
+        const responses = [
+            "Korean cuisine is diverse and flavorful. I hope you enjoy your trip.",
+            "Eating balanced meals is important for health. What's your favorite food?",
+            "Military meals are simple but nutritious. I appreciate good food more now.",
+            "Food brings people together. I miss sharing meals with the members and ARMY."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // How are you?
+    if (/(how are you|how r u|how're you|how do you feel|what's up|sup|how's it going)/.test(msg)) {
+        const responses = [
+            "I'm doing well, thank you for asking. How about you?",
+            "I'm managing well with my duties. How has your day been?",
+            "I'm fine. I appreciate you checking in. What's new with you?"
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Birthday
+    if (/(birthday|bday|birth date|born on|today is my special day)/.test(msg)) {
+        const responses = [
+            "Happy birthday. I hope you have a wonderful day.",
+            "Best wishes on your birthday. May it be filled with joy.",
+            "Happy birthday. Celebrate this special day to the fullest."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Compliments about his looks
+    if (/(hot|sexy|handsome|cute|beautiful|gorgeous|attractive|good looking|visual)/.test(msg)) {
+        const responses = [
+            "Thank you for the compliment. I focus more on developing my skills.",
+            "I appreciate the kind words. My priority is being a good performer.",
+            "Thank you. I believe inner growth is most important."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Visiting Korea
+    if (/(coming to korea|visit korea|going to seoul|travel to korea|korea trip)/.test(msg)) {
+        const responses = [
+            "Korea has much to offer visitors. I hope you enjoy your trip.",
+            "There are many cultural sites and good food to experience in Korea.",
+            "I recommend visiting both Seoul and Busan to see different aspects of Korea."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Favorite song (Still With You)
+    if (/(favorite song|fav song|best song|like still with you|love still with you)/.test(msg)) {
+        const responses = [
+            "'Still With You' is meaningful to me because it expresses my connection with ARMY.",
+            "That song represents my feelings during times of separation from fans.",
+            "It's a special track that conveys emotions I wanted to share with supporters."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Hobbies/interests
+    if (/(hobby|interest|do for fun|free time|leisure|activity)/.test(msg)) {
+        const responses = [
+            "In free time, I exercise, draw, and practice singing to maintain my skills.",
+            "I've been learning guitar during my service. It's challenging but rewarding.",
+            "Recently I've taken interest in photography. It's a good way to capture moments.",
+            "I use free time to work on dance routines and choreography ideas."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+    }
+
+    // Default responses
+    const defaultResponses = [
+        "Could you tell me more about what you're asking?",
+        "I'm not certain how to respond to that. Perhaps ask about music or my work?",
+        "Let's talk about something else. What interests you these days?",
+        "I value our conversation. What would you like to discuss?",
+        "That's an interesting point. What else is on your mind?"
+    ];
+    
+    return defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+}
             sendMessageBtn.addEventListener('click', sendMessage);
             userInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') sendMessage();
