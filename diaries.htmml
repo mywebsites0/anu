@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Previous Diaries | Anamika's BTS World</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: rgba(44, 83, 100, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+            padding: 30px 20px 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #00e6ff;
+            margin-bottom: 30px;
+        }
+        .diary-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .diary-item {
+            background: rgba(255,255,255,0.08);
+            border-left: 4px solid #00e6ff;
+            border-radius: 8px;
+            padding: 18px 18px 12px 18px;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+        }
+        .diary-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+        .diary-content {
+            flex: 1;
+        }
+        .diary-date {
+            color: #00e6ff;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+        }
+        .diary-mood {
+            font-size: 1.3rem;
+            margin-bottom: 6px;
+        }
+        .diary-text {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .back-btn {
+            display: inline-block;
+            margin: 20px 0 0 0;
+            background: #6a0dad;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 22px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-btn:hover {
+            background: #a4508b;
+        }
+        .delete-entry {
+            margin-top: 8px;
+            background: #ff3860;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 14px;
+            cursor: pointer;
+        }
+        .delete-entry:hover {
+            background: #ff1a3d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index2.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <h1>Previous Diaries</h1>
+        <div class="diary-list" id="diaryList"></div>
+    </div>
+    <script>
+        // Avatar options (should match those in index2.html)
+        const avatarOptions = [
+            'images/jungkook.jpg',
+            'images/anamika.jpg',
+            'images/download (27).jpg',
+            'images/jm.jpg',
+            'images/تصميمي 😩💥 ممنوع السرقة.jpg'
+        ];
+        function getAvatarUrl(avatarIdx) {
+            if (typeof avatarIdx === 'number' && avatarIdx >= 0 && avatarIdx < avatarOptions.length) {
+                return avatarOptions[avatarIdx];
+            }
+            // fallback
+            return 'images/anamika.jpg';
+        }
+        function renderDiaries() {
+            const diaryList = document.getElementById('diaryList');
+            let entries = JSON.parse(localStorage.getItem('diaryEntries')) || [];
+            if (entries.length === 0) {
+                diaryList.innerHTML = '<div style="text-align:center;color:#fff;font-size:1.2rem;">No diary entries yet.</div>';
+                return;
+            }
+            diaryList.innerHTML = '';
+            entries.slice().reverse().forEach((entry, idx) => {
+                const avatarUrl = entry.avatar || 'images/anamika.jpg';
+                const item = document.createElement('div');
+                item.className = 'diary-item';
+                item.innerHTML = `
+                    <img class="diary-avatar" src="${avatarUrl}" alt="Avatar">
+                    <div class="diary-content">
+                        <div class="diary-date">${entry.date}</div>
+                        <div class="diary-text" contenteditable="false">${entry.text}</div>
+                        <div style="display:flex;gap:8px;align-items:center;margin-top:4px;">
+                            <button class="edit-entry" data-index="${entries.length - 1 - idx}" title="Edit" style="background:#00e6ff;color:#fff;border:none;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;padding:0;cursor:pointer;"><i class="fas fa-pen"></i></button>
+                            <button class="delete-entry" data-index="${entries.length - 1 - idx}" title="Delete" style="background:#ff3860;color:#fff;border:none;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;padding:0;cursor:pointer;"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                diaryList.appendChild(item);
+            });
+            document.querySelectorAll('.delete-entry').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    deleteDiaryEntry(index);
+                });
+            });
+            document.querySelectorAll('.edit-entry').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const diaryItem = this.closest('.diary-item');
+                    const textDiv = diaryItem.querySelector('.diary-text');
+                    if (this.classList.contains('editing')) {
+                        // Save edit
+                        let entries = JSON.parse(localStorage.getItem('diaryEntries')) || [];
+                        entries[index].text = textDiv.textContent;
+                        localStorage.setItem('diaryEntries', JSON.stringify(entries));
+                        this.classList.remove('editing');
+                        this.innerHTML = '<i class="fas fa-pen"></i>';
+                        textDiv.contentEditable = 'false';
+                        textDiv.style.background = '';
+                    } else {
+                        // Start editing
+                        this.classList.add('editing');
+                        this.innerHTML = '<i class="fas fa-check"></i>';
+                        textDiv.contentEditable = 'true';
+                        textDiv.focus();
+                        textDiv.style.background = 'rgba(0,230,255,0.08)';
+                    }
+                });
+            });
+        }
+        function deleteDiaryEntry(index) {
+            let entries = JSON.parse(localStorage.getItem('diaryEntries')) || [];
+            entries.splice(index, 1);
+            localStorage.setItem('diaryEntries', JSON.stringify(entries));
+            renderDiaries();
+        }
+        renderDiaries();
+    </script>
+</body>
+</html>
